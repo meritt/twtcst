@@ -1,6 +1,6 @@
 # Twitter online conference
 
-It's a small example how to create twitter online conference with Node.js, Twitter Streaming API and Webscokets.
+It's a small example how to create twitter online conference with Node.js, Twitter Streaming API and Websockets.
 
 Requirements
 ------------
