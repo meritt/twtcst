@@ -1,0 +1,15 @@
+{
+    "name": "twitter-conference"
+  , "version": "0.0.1"
+  , "author": "Alexey Simonenko <alexey@simonenko.su> (https://github.com/meritt)"
+  , "private": true
+  , "engines": {
+      "node": ">=0.6.0 <0.7.0"
+    }
+  , "dependencies": {
+      "optimist": ">=0.3.0 <0.4.0"
+    , "b64": ">=1.0.0 <1.1.0"
+    , "socket.io": ">=0.9.0 <0.10.0"
+    , "twitter-text": ">=1.4.0 <1.5.0"
+  }
+}
