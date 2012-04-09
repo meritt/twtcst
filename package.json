@@ -1,8 +1,14 @@
 {
     "name": "twitter-conference"
   , "version": "0.0.1"
+  , "description": "Twitter online conference"
+  , "keywords": ["twitter", "stream", "websocket", "socket.io", "conference"]
   , "author": "Alexey Simonenko <alexey@simonenko.su> (https://github.com/meritt)"
-  , "private": true
+  , "homepage": "http://github.com/meritt/twitter-conference"
+  , "repository": {
+        "type": "git"
+      , "url": "https://github.com/meritt/twitter-conference.git"
+    }
   , "engines": {
       "node": ">=0.6.0 <0.7.0"
     }
