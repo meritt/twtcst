@@ -2,6 +2,13 @@
 
 It's a small example how to create twitter online conference with Node.js, Twitter Streaming API and Websockets.
 
+[Article about this in Russian in my blog.](http://simonenko.su/20775191979/nodejs-twitter-stream-websockets)
+
+Run
+---
+
+	coffee twitter.coffee --name <twitter name> --password <twitter password> --hash <hash tags>
+
 Requirements
 ------------
 
