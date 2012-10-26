@@ -39,13 +39,26 @@ request.on 'response', (response) ->
         message = body.slice 0, newline
         if message? and message isnt ''
           tweet = JSON.parse message
+
+          text = twitter.autoLink tweet.text
+          if tweet.entities?
+            if tweet.entities.urls? and tweet.entities.urls.length > 0
+              for entity in tweet.entities.urls
+                text = text.replace entity.url, entity.expanded_url
+                text = text.replace entity.url, entity.display_url
+
+            if tweet.entities.media? and tweet.entities.media.length > 0
+              for entity in tweet.entities.media
+                text = text.replace entity.url, entity.expanded_url
+                text = text.replace entity.url, entity.display_url
+
           data =
             id: tweet.id_str
             link: "http://twitter.com/#{tweet.user.screen_name}"
             avatar: tweet.user.profile_image_url
             login: tweet.user.screen_name
             name: tweet.user.name or tweet.user.screen_name
-            text: twitter.autoLink tweet.text
+            text: text
 
       catch error
         tweet = null
