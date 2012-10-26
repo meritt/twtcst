@@ -70,4 +70,6 @@ request.on 'response', (response) ->
           if client and client.disconnected is false
             client.send JSON.stringify data
 
+    body = body.slice newline + 1
+
 request.end()
