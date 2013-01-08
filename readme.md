@@ -4,15 +4,17 @@ It's a small example how to create twitter online conference with Node.js, Twitt
 
 [Article about this in Russian in my blog.](http://simonenko.su/20775191979/nodejs-twitter-stream-websockets)
 
-Run
----
+How to run
+----------
 
-	coffee twitter.coffee --name <twitter name> --password <twitter password> --hash <hash tags>
+	node lib/twitter.js --name <twitter name> --password <twitter password> --hash <search hashtag>
+
+Then open examples/index.html in your browser for demo.
 
 Requirements
 ------------
 
-  * Node.js / CoffeeScript
+  * Node.js
   * Socket.io
 
 Install with NPM
@@ -23,4 +25,4 @@ Install with NPM
 Author
 ------
 
-* Alexey Simonenko, alexey@simonenko.su, [@simonenko](http://twitter.com/simonenko)
+* [Alexey Simonenko](mailto:alexey@simonenko.su), [simonenko.su](http://simonenko.su)
