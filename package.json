@@ -1,6 +1,6 @@
 {
     "name": "twitter-conference"
-  , "version": "0.1.0"
+  , "version": "0.2.0"
   , "description": "Twitter online conference"
   , "keywords": ["twitter", "stream", "websocket", "socket.io", "conference"]
   , "author": "Alexey Simonenko <alexey@simonenko.su>"
