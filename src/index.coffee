@@ -1,21 +1,11 @@
-
 filter = require './filter'
 search = require './search'
 
-def =
+defaults =
   version: "1.1"
   lang: ["en"]
-  words: [
-      '#js'
-    , '#nodejs'
-    , 'nodejs'
-    , 'node.js'
-  ]
   mute: []
-  spam: [
-      '"text/javascript"'
-    , 'javascript:void(0)'
-  ]
+  spam: []
   count: "count.txt"
 
 
@@ -27,25 +17,21 @@ oauth: {\n
   token_secret: ''\n
 }\n
 "
+
 parse = (options) ->
-  if options.oauth
-    if options.oauth.consumer_key and options.oauth.consumer_secret
-      if options.oauth.token and options.oauth.token_secret
-        if not options.version
-          options.version = def.version
-        if not options.words
-          options.words = def.words
-        if not options.spam
-          options.spam = def.span
-        if not options.countfile
-          options.count = def.count
-        return options
-  throw oauthErr
+  if not options.words or options.words.length < 1
+    throw "Set words for search"
+  if not (options.oauth and options.oauth.consumer_key and options.oauth.consumer_secret and options.oauth.token and options.oauth.token_secret)
+    throw oauthErr
+  for own key, value of defaults
+    if not options.hasOwnProperty key
+      options[key] = value
+  return options
 
 module.exports = (options) ->
   options = parse options
-  twtcst =
+  return {
     filter: filter options
     search: search options
-  return twtcst
+  }
 
