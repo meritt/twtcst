@@ -1,0 +1,5 @@
+.jshintrc
+.coffeelintrc
+examples
+src
+Cakefile
