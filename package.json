@@ -28,7 +28,7 @@
   }
   , "scripts": {
       "build": "cake build"
-    , "start": "node examples/index.js"
+    , "start": "node examples/filter.js"
   }
 }
 

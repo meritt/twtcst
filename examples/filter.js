@@ -1,12 +1,6 @@
 "use strict";
 
-var oauth = {
-  // 'consumer_key': '',     FILL THIS
-  // 'consumer_secret': '',  FILL THIS
-  // 'token': '',            FILL THIS
-  // 'token_secret': ''      FILL THIS
-},
-
+var oauth = require('./oauth'),
 options = require('./options'),
 twtcst  = require('./../lib/index'),
 
