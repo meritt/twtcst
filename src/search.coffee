@@ -1,17 +1,11 @@
 request = require 'request'
 qs      = require 'querystring'
 
-beautify = require './beautify'
-validate = require './validate'
-
 data =
-  lang: 'ru'
   result_type: 'recent'
   count: 60
 
-module.exports = (options) ->
-  validate = validate options
-  beautify = beautify options
+module.exports = (options, beautify, validate) ->
   return (fn) ->
     count = 10
     search = options.words.join ' OR '

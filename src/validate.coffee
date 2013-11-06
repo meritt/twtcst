@@ -5,8 +5,9 @@ module.exports = (options) ->
     return false if not tweet or not tweet.user or not tweet.text
 
     # Only determinded languages
-    if tweet.user.lang?
-      return false if tweet.user.lang not in options.lang
+    if options.lang.length > 0
+      if tweet.user.lang?
+        return false if tweet.user.lang not in options.lang
 
     # Remove some twitter accounts
     account = "#{tweet.user.screen_name}".toLowerCase()
@@ -14,13 +15,18 @@ module.exports = (options) ->
 
     text = "#{tweet.text}"
 
-    # Don't allow old retweet or mention tweets
-    if text.indexOf('RT ') is 0 or text.indexOf('@') is 0 or text.indexOf('.@') is 0
-      return false
+    # Retweets
+    if not options.retweets
+      return false if text.indexOf('RT ') is 0
+
+    # Mentions
+    if not options.mentions
+      return false if text.indexOf('@') is 0 or text.indexOf('.@') is 0
 
     # Check user avatar, if it's default then ignore
-    if tweet.user.profile_image_url.indexOf('default_profile_images') > -1
-      return false
+    if not options.default_profile_images
+      if tweet.user.profile_image_url.indexOf('default_profile_images') > -1
+        return false
 
     # Prepare tweet text
     if tweet.entities.urls? and tweet.entities.urls.length > 0
@@ -33,9 +39,10 @@ module.exports = (options) ->
     return false for spam in options.spam when text.indexOf(spam) isnt -1
 
     # Remove tweets with spam hashtags
-    hashtags = twitter.extractHashtagsWithIndices text
-    if hashtags and hashtags.length > options.hashlength
-      return false
+    if options.hash_length
+      hashtags = twitter.extractHashtagsWithIndices text
+      if hashtags and hashtags.length > options.hash_length
+        return false
 
     return true
 

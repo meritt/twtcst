@@ -2,16 +2,21 @@
 
 filter = require './filter'
 search = require './search'
+beautify = require './beautify'
+validate = require './validate'
+
 
 defaults =
-  version: "1.1"
-  lang: ["en", "ru"]
+  version: 1.1
+  retweets: true
+  mentions: true
+  default_profile_images: true
+  count: true
+  lang: []
   mute: []
   spam: []
-  count: "count.txt"
-  hashlength: 5
 
-oauthError = """You must specify oauth in your options object:
+oauth_error = """You must specify oauth in your options object:
 oauth = {
   consumer_key: ''
   consumer_secret: ''
@@ -25,11 +30,14 @@ parse = (words, oauth, options) ->
     throw new Error "Set words for search"
 
   unless oauth.consumer_key and oauth.consumer_secret and oauth.token and oauth.token_secret
-    throw new Error oauthError
+    throw new Error oauth_error
 
   result = JSON.parse JSON.stringify defaults
 
   result[key] = value for own key, value of options
+
+  if result.hash_length
+    result.hash_length = parseInt(result.hash_length, 10) || 1
 
   result.words = words
   result.oauth = oauth
@@ -38,6 +46,8 @@ parse = (words, oauth, options) ->
 
 module.exports = (words, oauth = {}, options = {}) ->
   options = parse words, oauth, options
+  beautify = beautify options
+  validate = validate options
 
-  filter: filter options
-  search: search options
+  filter: filter options, beautify, validate
+  search: search options, beautify, validate

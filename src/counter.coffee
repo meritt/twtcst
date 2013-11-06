@@ -9,12 +9,13 @@ class Counter
   fromFile = false
 
   constructor: (fileName) ->
-    file = path.normalize fileName
-    fs.exists file, (exists) ->
-      if exists
-        read()
-      else
-        save()
+    if fileName
+      file = path.normalize fileName
+      fs.exists file, (exists) ->
+        if exists
+          read()
+        else
+          save()
 
   inc: ->
     ++counter
@@ -39,5 +40,5 @@ class Counter
 
 
 module.exports = (options) ->
-  return new Counter options.count
+  return new Counter options.count_file
 

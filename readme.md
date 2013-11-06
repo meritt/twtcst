@@ -43,7 +43,7 @@ and ```options``` is object contains your options.
 
 ### Options
 
-All options are optionals.
+All options are optional.
 
 **version** is string of Twitter Stream API version (1.1 by default)
 
@@ -59,6 +59,26 @@ the tweet won’t be displayed.
     "us",
     "ru"
   ]
+```
+
+**retweets** is boolean. If it is false retweets won’t be displayed. The 
+variable is true by default.
+
+```js
+  "retweets": false
+```
+
+**mentions** work as **retweets**. If it is false mentions won’t be displayed.
+
+```js
+  "mentions": false
+```
+
+**default_profile_images** is boolean. If it is false tweet posted by users with
+default avatar won’t be displayed.
+
+```js
+  "default_profile_images": false
 ```
 
 **spam** is array of strings. Tweets contain one of the strings won’t be

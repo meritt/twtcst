@@ -1,5 +1,3 @@
-beautify = require './beautify'
-validate = require './validate'
 counter  = require './counter'
 
 params = (options) ->
@@ -9,11 +7,10 @@ params = (options) ->
     form: include_entities: true
   }
 
-module.exports = (options) ->
+module.exports = (options, beautify, validate) ->
   params = params options
-  validate = validate options
-  beautify = beautify options
-  counter = counter options
+  if options.count
+    counter = counter options
   return (fn) ->
     params.form.track = options.words.join ','
 
@@ -28,7 +25,7 @@ module.exports = (options) ->
 
       if validate tweet
         tweet = beautify tweet, false
-        tweet.counter = counter.inc()
+        tweet.counter = counter.inc() if options.count
 
         fn null, tweet
 
