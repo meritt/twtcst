@@ -1,26 +1,19 @@
+"use strict";
+
 var oauth = {
-      "consumer_key": "",
-      "consumer_secret": "",
-      "token": "",
-      "token_secret": ""
-    },
-    words = ['#js', '#nodejs'],
-    options = require('./options'),
-    twtcst = require('./../lib/index')(words, oauth, options);
+  // 'consumer_key': '',     FILL THIS
+  // 'consumer_secret': '',  FILL THIS
+  // 'token': '',            FILL THIS
+  // 'token_secret': ''      FILL THIS
+},
 
+options = require('./options'),
+twtcst  = require('./../lib/index'),
 
-twtcst.search(function (error, tweet) {
-  if (error) {
-    console.log(error);
-  } else {
+twitter = twtcst(['#js', '#nodejs'], oauth, options);
+
+twitter.filter(function(error, tweet) {
+  if (!error) {
     console.log(tweet);
   }
-  twtcst.filter(function (error, tweet) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log(tweet);
-    }
-  });
 });
-

@@ -1,14 +1,6 @@
 module.exports = {
-
-    "lang": [
-      "en"
-    , "ru"
-  ]
-
-  , "spam": [
+  'spam': [
       '"text/javascript"'
     , 'javascript:void(0)'
   ]
-
 };
-
