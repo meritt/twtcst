@@ -20,11 +20,15 @@
       "node": "0.10.x"
     }
   , "dependencies": {
-      "twitter-text": "1.5.x"
+      "twitter-text": "1.6.x"
     , "request": "2.27.x"
   }
   , "devDependencies": {
       "coffee-script": "1.6.x"
+  }
+  , "scripts": {
+      "build": "cake build"
+    , "start": "node examples/index.js"
   }
 }
 
