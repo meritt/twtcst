@@ -26,7 +26,6 @@ io.sockets.on('connection', function(socket) {
       if (tweets) {
         for (var i = 0; i < tweets.length; i++) {
           message(tweets[i]);
-          console.log(tweets[i]);
         }
       }
     });

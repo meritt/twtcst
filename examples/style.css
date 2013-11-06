@@ -13,6 +13,18 @@ h1 {
   font-weight: 400;
   font-size: 2em;
 }
+.twtcst_indicator {
+  display: inline-block;
+  margin: 0 0 0 20px;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #ed5437;
+  transition: background-color 1s;
+}
+.twtcst_indicator.online {
+  background-color: #71c18b;
+}
 #tweets {
   margin: 0;
   padding: 0;
