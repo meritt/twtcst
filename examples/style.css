@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  padding: 0;
+  font: 100%/1.5 'PT Sans', 'Helvetica Neue', 'Arial', sans;
+}
+.container {
+  margin: 0 auto;
+  padding: 2em 0;
+  max-width: 1000px;
+}
+h1 {
+  border-bottom: 1px solid #ddd;
+  font-weight: 400;
+  font-size: 2em;
+}
+#tweets {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tweet {
+  padding: 1.5em 0 1.5em 80px;
+  min-height: 80px;
+  border-bottom: 1px solid #ddd;
+}
+.tweet_userlink {
+  text-decoration: none;
+}
+.tweet_author {
+  margin: 0;
+  padding: 0;
+  color: #333;
+  font-weight: 700;
+  font-size: inherit;
+}
+.tweet_login {
+  color: #999;
+  font-weight: normal;
+  font-size: inherit;
+}
+.tweet_pic {
+  float: left;
+  margin: 0;
+  margin-left: -80px;
+  border: none;
+}
