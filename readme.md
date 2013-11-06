@@ -7,7 +7,7 @@ It’s a nodejs module provide you easy interface to get the stream of tweets.
 ## Install with NPM
 
 ```bash
-	npm install twtcst
+npm install twtcst
 ```
 
 ## API
@@ -25,7 +25,7 @@ var words = [
   "#js",
   "#javascript",
   "js"
-]
+];
 ```
 
 ```oauth``` is object contains your tokens, e. g.:
@@ -36,7 +36,7 @@ var oauth = {
   "consumer_secret": "0123456789abcdefghijklmnopqrstuvwxyzABCDE",
   "token": "01234567-01234567890abcdefghijklmnopqrstuvwxyzABCD",
   "token_secret": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHI"
-},
+};
 ```
 
 and ```options``` is object contains your options.
@@ -66,8 +66,8 @@ displayed.
 
 ```js
   "spam": [
-      '"text/javascript"'
-    , 'javascript:void(0)'
+    '"text/javascript"',
+    'javascript:void(0)'
   ]
 ```
 
