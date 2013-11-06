@@ -10,8 +10,7 @@ task 'build', 'Build lib/ from src/', ->
     else
       if not fs.existsSync './lib'
         fs.mkdirSync './lib'
-
-      for file in files
+      for file in files when /\.coffee$/.test file
         do (file) ->
           input = path.normalize "./src/#{file}"
 
@@ -27,4 +26,3 @@ task 'build', 'Build lib/ from src/', ->
                 console.log err
                 return
               console.log "#{output} has been compiled"
-
