@@ -1,0 +1,7 @@
+{
+    "node": true
+  , "browser": false
+  , "strict": true
+  , "laxbreak": true
+  , "camelcase": true
+}
