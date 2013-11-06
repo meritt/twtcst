@@ -26,7 +26,7 @@ Author
 ------
 
 * [Alexey Simonenko](mailto:alexey@simonenko.su), [simonenko.su](http://simonenko.su)
-* [Sophia](mailto:)
+* [Sophia Ilinova](mailto:tavsophi@gmail.com)
 
 ---
 

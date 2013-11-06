@@ -6,8 +6,8 @@
   , "author": "Alexey Simonenko <alexey@simonenko.su>"
   , "contributors": [
       {
-          "name": "Sophia"
-        , "email": ""
+          "name": "Sophia Ilinova"
+        , "email": "tavsophi@gmail.com"
       }
     ]
   , "homepage": "http://simonenko.su/projects/twitter-conference"
@@ -25,3 +25,4 @@
     , "twitter-text": "1.5.x"
   }
 }
+
