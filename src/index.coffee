@@ -45,9 +45,17 @@ parse = (words, oauth, options) ->
   result
 
 module.exports = (words, oauth = {}, options = {}) ->
+
   options = parse words, oauth, options
-  beautify = beautify options
+
+  if options.count
+    counter = require('./counter')(options.count_file)
+  else
+    counter = null
+
+  beautify = beautify options, counter
   validate = validate options
+
 
   filter: filter options, beautify, validate
   search: search options, beautify, validate

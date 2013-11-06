@@ -11,6 +11,7 @@
   }
 
   var messages = [],
+      keys = [],
       socket = io.connect('http://127.0.0.1:3065'),
       container = document.querySelector('#tweets'),
       indicator = document.querySelector('.twtcst_indicator'),
@@ -35,6 +36,7 @@
   function update () {
     if (messages.length > 0) {
       var tweet = messages.pop();
+      delete keys[tweet.id];
       if (show_count && tweet.counter) {
         counter.innerHTML = '('+tweet.counter+' tweets)';
       }
@@ -57,6 +59,10 @@
     socket.emit('search');
     socket.on('tweet', function (result) {
       result = JSON.parse(result);
+      if (keys[result.id] === true) {
+        return;
+      }
+      keys[result.id] = true;
       messages.push(result);
     });
     socket.on('disconnect', function () {

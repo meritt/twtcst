@@ -25,7 +25,7 @@ getImage = (entity) ->
 
 pad = (n) -> if n < 10 then "0#{n}" else n
 
-module.exports = (options) ->
+module.exports = (options, counter) ->
   return (result, auto = true) ->
     if auto is true
       text = twitter.autoLink result.text, target: '_blank'
@@ -63,3 +63,6 @@ module.exports = (options) ->
       date: created
       iso: date.toISOString()
 
+    data.counter = counter.inc() if counter
+    
+    data

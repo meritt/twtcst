@@ -1,4 +1,3 @@
-counter  = require './counter'
 
 params = (options) ->
   return {
@@ -9,8 +8,6 @@ params = (options) ->
 
 module.exports = (options, beautify, validate) ->
   params = params options
-  if options.count
-    counter = counter options
   return (fn) ->
     params.form.track = options.words.join ','
 
@@ -25,7 +22,5 @@ module.exports = (options, beautify, validate) ->
 
       if validate tweet
         tweet = beautify tweet, false
-        tweet.counter = counter.inc() if options.count
 
         fn null, tweet
-

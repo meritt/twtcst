@@ -22,7 +22,7 @@ module.exports = (options, beautify, validate) ->
 
       tweets = body.statuses
       results = []
-      while results.length isnt count
+      while results.length isnt count and tweets.length > 0
         try
           tweet = tweets.shift()
         catch error
@@ -35,4 +35,3 @@ module.exports = (options, beautify, validate) ->
         results.push beautify tweet, false
 
       fn results
-

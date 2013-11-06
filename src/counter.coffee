@@ -19,7 +19,7 @@ class Counter
 
   inc: ->
     ++counter
-    save() if fromFile
+    save()
     counter
 
   read = ->
@@ -31,14 +31,14 @@ class Counter
         fromFile = true
 
   save = ->
-    fs.writeFile file, counter, (err) ->
-      if err
-        console.log err
-        fromFile = false
-      else
-        fromFile = true
+    if fromFile
+      fs.writeFile file, counter, (err) ->
+        if err
+          console.log err
+          fromFile = false
+        else
+          fromFile = true
 
 
-module.exports = (options) ->
-  return new Counter options.count_file
-
+module.exports = (file) ->
+  return new Counter file
