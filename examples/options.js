@@ -1,22 +1,8 @@
 module.exports = {
 
-    "oauth": {
-      "consumer_key": ""
-    , "consumer_secret": ""
-    , "token": ""
-    , "token_secret": ""
-    }
-
-  , "version": "1.1"
-
-  , "lang": [
+    "lang": [
       "en"
     , "ru"
-  ]
-
-  , "words": [
-      '#js'
-    , '#nodejs'
   ]
 
   , "spam": [

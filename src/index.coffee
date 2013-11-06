@@ -19,18 +19,20 @@ oauth: {\n
 }\n
 "
 
-parse = (options) ->
-  if not options.words or options.words.length < 1
+parse = (words, oauth, options) ->
+  if not words or words.length < 1
     throw "Set words for search"
-  if not (options.oauth and options.oauth.consumer_key and options.oauth.consumer_secret and options.oauth.token and options.oauth.token_secret)
+  if not (oauth and oauth.consumer_key and oauth.consumer_secret and oauth.token and oauth.token_secret)
     throw oauthErr
-  for own key, value of defaults
-    if not options.hasOwnProperty key
-      options[key] = value
-  return options
+  result = JSON.parse JSON.stringify defaults
+  for own key, value of options
+    result[key] = value
+  result.words = words
+  result.oauth = oauth
+  return result
 
-module.exports = (options) ->
-  options = parse options
+module.exports = (words, oauth, options) ->
+  options = parse words, oauth, options
   return {
     filter: filter options
     search: search options
