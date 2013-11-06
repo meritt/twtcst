@@ -7,6 +7,7 @@ defaults =
   mute: []
   spam: []
   count: "count.txt"
+  hashlength: 5
 
 
 oauthErr = "You must specify oauth in your options object:\n

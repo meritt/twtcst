@@ -34,7 +34,7 @@ module.exports = (options) ->
 
     # Remove tweets with spam hashtags
     hashtags = twitter.extractHashtagsWithIndices text
-    if hashtags and hashtags.length > 5
+    if hashtags and hashtags.length > options.hashlength
       return false
 
     return true
