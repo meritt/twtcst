@@ -2,7 +2,7 @@
 
 It's a small example how to create twitter online conference with Node.js, Twitter Streaming API and Websockets.
 
-[Article about this in Russian in my blog.](http://simonenko.su/20775191979/nodejs-twitter-stream-websockets)
+[Article about this in Russian in my blog.](http://simonenko.su/53381781858/pulse-of-web-developments)
 
 How to run
 ----------
@@ -20,9 +20,16 @@ Requirements
 Install with NPM
 ----------------
 
-	npm install twitter-conference
+	npm install twtcst
 
 Author
 ------
 
 * [Alexey Simonenko](mailto:alexey@simonenko.su), [simonenko.su](http://simonenko.su)
+* [Sophia](mailto:)
+
+---
+
+## License
+
+The MIT License, see the included `license.md` file.
