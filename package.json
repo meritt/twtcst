@@ -1,16 +1,22 @@
 {
-    "name": "twitter-conference"
-  , "version": "0.2.0"
+    "name": "twtcst"
+  , "version": "0.3.0"
   , "description": "Twitter online conference"
-  , "keywords": ["twitter", "stream", "websocket", "socket.io", "conference"]
+  , "keywords": ["twitter", "stream", "websocket", "socket.io", "conference", "broadcast"]
   , "author": "Alexey Simonenko <alexey@simonenko.su>"
+  , "contributors": [
+      {
+          "name": "Sophia"
+        , "email": ""
+      }
+    ]
   , "homepage": "http://simonenko.su/projects/twitter-conference"
   , "repository": {
         "type": "git"
-      , "url": "https://github.com/meritt/twitter-conference.git"
+      , "url": "https://github.com/serenity/twtcst.git"
     }
   , "engines": {
-      "node": ">=0.8.0 <0.9.0"
+      "node": "0.10.x"
     }
   , "dependencies": {
       "optimist": "0.3.x"
