@@ -15,7 +15,7 @@ h1 {
 }
 .twtcst_indicator {
   display: inline-block;
-  margin: 0 0 0 20px;
+  margin: 0 5px 0 0;
   width: 20px;
   height: 20px;
   border-radius: 10px;
@@ -24,6 +24,10 @@ h1 {
 }
 .twtcst_indicator.online {
   background-color: #71c18b;
+}
+.tweet_count {
+  color: #999;
+  font-size: 0.75em;
 }
 #tweets {
   margin: 0;
@@ -55,4 +59,7 @@ h1 {
   margin: 0;
   margin-left: -80px;
   border: none;
+}
+.twtcst-image {
+  display: block;
 }

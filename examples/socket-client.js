@@ -3,7 +3,8 @@
   "use strict";
 
   var interval = 3000,
-      max = 20;
+      max = 20,
+      show_count = true;
 
   if (!window.io) {
     return;
@@ -13,6 +14,7 @@
       socket = io.connect('http://127.0.0.1:3065'),
       container = document.querySelector('#tweets'),
       indicator = document.querySelector('.twtcst_indicator'),
+      counter = document.querySelector('.tweet_count'),
       saved = window.localStorage.getItem("twtcst"),
       template = document.querySelector('#tweet-template').innerHTML;
 
@@ -33,6 +35,9 @@
   function update () {
     if (messages.length > 0) {
       var tweet = messages.pop();
+      if (show_count && tweet.counter) {
+        counter.innerHTML = '('+tweet.counter+' tweets)';
+      }
       tweet = parse(tweet);
       container.insertBefore(tweet, container.firstElementChild);
       while (container.children.length > max) {
@@ -44,6 +49,7 @@
 
   if (saved) {
     container.innerHTML = saved;
+    update();
   }
 
   socket.on('connect', function () {
