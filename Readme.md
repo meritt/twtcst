@@ -124,4 +124,4 @@ contains more hashtags than specified won’t be displayed.
 
 ## License
 
-The MIT License, see the included `license.md` file.
+The MIT License, see the included `License.md` file.
