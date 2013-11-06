@@ -1,3 +1,5 @@
+"use strict"
+
 filter = require './filter'
 search = require './search'
 
@@ -20,10 +22,10 @@ oauth = {
 
 parse = (words, oauth, options) ->
   if not words or words.length < 1
-    throw "Set words for search"
+    throw new Error "Set words for search"
 
-  unless (oauth and oauth.consumer_key and oauth.consumer_secret and oauth.token and oauth.token_secret)
-    throw oauthError
+  unless oauth.consumer_key and oauth.consumer_secret and oauth.token and oauth.token_secret
+    throw new Error oauthError
 
   result = JSON.parse JSON.stringify defaults
 
@@ -34,7 +36,7 @@ parse = (words, oauth, options) ->
 
   result
 
-module.exports = (words, oauth, options = {}) ->
+module.exports = (words, oauth = {}, options = {}) ->
   options = parse words, oauth, options
 
   filter: filter options
