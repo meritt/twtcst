@@ -6,9 +6,9 @@ twtcst  = require('./../lib/index'),
 
 twitter = twtcst(['#js', '#nodejs'], oauth, options);
 
-twitter.search(function(tweets) {
+twitter.search(function (tweets) {
   console.log(tweets);
-  twitter.filter(function(error, tweet) {
+  twitter.filter(function (error, tweet) {
     if (!error) {
       console.log(tweet);
     }

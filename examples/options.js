@@ -3,7 +3,7 @@ module.exports = {
   'retweets': false,
   'mentions': false,
   'spam': [
-      '"text/javascript"'
-    , 'javascript:void(0)'
+    '"text/javascript"',
+    'javascript:void(0)'
   ]
 };
