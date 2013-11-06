@@ -38,9 +38,7 @@ module.exports = (options) ->
 
         continue if validate(tweet) is false
 
-        tweet = beautify tweet, false
-
-        results.push tweet
+        results.push beautify tweet, false
 
       fn results
 

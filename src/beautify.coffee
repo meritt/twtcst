@@ -19,9 +19,9 @@ getImage = (entity) ->
     media.h = parseInt media.h * 500 / media.w, 10
     media.w = 500
 
-  inlineImage = "<a href=\"#{media.url}\" class=\"tw-image\" target=\"_blank\">"
-  inlineImage += "<img src=\"#{media.url}\" width=\"#{media.w}\" height=\"#{media.h}\">"
-  inlineImage += "</a>"
+  inline = "<a href=\"#{media.url}\" class=\"twtcst-image\" target=\"_blank\">"
+  inline += "<img src=\"#{media.url}\" width=\"#{media.w}\" height=\"#{media.h}\">"
+  inline += "</a>"
 
 pad = (n) -> if n < 10 then "0#{n}" else n
 
@@ -36,22 +36,22 @@ module.exports = (options) ->
       for entity in result.entities.urls
         text = expandEntity text, entity
 
-    inlineImage = false
+    inline = false
     if result.entities.media? and result.entities.media.length > 0
       for entity in result.entities.media
         text = expandEntity text, entity
-        inlineImage = getImage entity
+        inline = getImage entity
 
 
     result.text = text
-    result.text += inlineImage if inlineImage
+    result.text += inline if inline
 
     image = result.user.profile_image_url
     pos = image.lastIndexOf '_'
-    result.user.profile_image_url = image.substring(0, pos) + '_bigger' + image.substring(pos + 7)
+    result.user.profile_image_url = "#{image.substring(0, pos)}_bigger#{image.substring(pos + 7)}"
 
     date = new Date result.created_at
-    created = date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate()) + ' ' + pad(date.getHours()) + ':' + pad(date.getMinutes())
+    created = "#{date.getFullYear()}-#{pad(date.getMonth() + 1)}-#{pad(date.getDate())} #{pad(date.getHours())}:#{pad(date.getMinutes())}"
 
     data =
       id: result.id_str
