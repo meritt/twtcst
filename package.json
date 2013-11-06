@@ -1,6 +1,7 @@
 {
     "name": "twtcst"
   , "version": "0.3.0"
+  , "main": "./lib/index.js"
   , "description": "Twitter online conference"
   , "keywords": ["twitter", "stream", "websocket", "socket.io", "conference", "broadcast"]
   , "author": "Alexey Simonenko <alexey@simonenko.su>"
@@ -19,10 +20,11 @@
       "node": "0.10.x"
     }
   , "dependencies": {
-      "optimist": "0.3.x"
-    , "b64": "1.0.x"
-    , "socket.io": "0.9.x"
-    , "twitter-text": "1.5.x"
+      "twitter-text": "1.5.x"
+    , "request": "2.27.x"
+  }
+  , "devDependencies": {
+      "coffee-script": "1.6.x"
   }
 }
 
