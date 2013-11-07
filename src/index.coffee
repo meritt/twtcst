@@ -57,8 +57,8 @@ module.exports = (words, oauth = {}, options = {}) ->
   else
     counter = null
 
-  beautify = beautify options
-  validate = validate options
+  _beautify = beautify options
+  _validate = validate options
 
-  filter: filter options, beautify, validate, counter
-  search: search options, beautify, validate, counter
+  filter: filter options, _beautify, _validate, counter
+  search: search options, _beautify, _validate, counter
