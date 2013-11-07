@@ -7,7 +7,6 @@ validate = require './validate'
 
 defaults =
   version: 1.1       # Twitter API version
-  count: false       #
 
   lang: ['en', 'ru'] # list of languages
   mute: []           # list of blocked twitter accounts
@@ -17,6 +16,9 @@ defaults =
   mentions: false    # show mentions
   userpics: true     # hide twitter accounts with default userpic
   hashtags: 5        # maximum hashtags in text
+
+  count: false       #
+  storage: false     #
 
   media:
     width: 500
@@ -71,7 +73,7 @@ module.exports = (words, oauth = {}, options = {}) ->
   options = parse words, oauth, options
 
   if options.count is true
-    counter = require('./counter')(options.count_file)
+    counter = require('./counter') options.storage
   else
     counter = null
 
