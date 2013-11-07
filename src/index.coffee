@@ -23,6 +23,7 @@ defaults =
     height: 500
     class: 'twtcst_image'
 
+
 oauth_error = """You must specify oauth tokens, for example:
 oauth = {
   consumer_key: ''
@@ -31,6 +32,19 @@ oauth = {
   token_secret: ''
 }
 """
+
+
+merge = (obj1, obj2) ->
+  for own key, value of obj2
+    try
+      if value.constructor is Object
+        obj1[key] = merge obj1[key], value
+      else
+        obj1[key] = value
+    catch e
+      obj1[key] = value
+  return obj1
+
 
 parse = (words, oauth, params) ->
   if not words or words.length < 1
@@ -41,7 +55,9 @@ parse = (words, oauth, params) ->
 
   options = JSON.parse JSON.stringify defaults
 
-  options[key] = value for own key, value of params
+  options = merge options, params
+
+  console.log options
 
   if options.hashtags
     options.hashtags = parseInt options.hashtags, 10
@@ -51,6 +67,7 @@ parse = (words, oauth, params) ->
   options.oauth = oauth
 
   options
+
 
 module.exports = (words, oauth = {}, options = {}) ->
   options = parse words, oauth, options
