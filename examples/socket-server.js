@@ -22,7 +22,7 @@ io.set('transports', ['websocket', 'xhr-polling']);
 io.sockets.on('connection', function(socket) {
   clients.push(socket);
   socket.on('search', function () {
-    twitter.search(function (tweets) {
+    twitter.search(function (error, tweets) {
       if (tweets) {
         for (var i = 0; i < tweets.length; i++) {
           message(tweets[i]);
