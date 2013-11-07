@@ -57,8 +57,6 @@ parse = (words, oauth, params) ->
 
   options = merge options, params
 
-  console.log options
-
   if options.hashtags
     options.hashtags = parseInt options.hashtags, 10
     options.hashtags = false unless options.hashtags > -1
