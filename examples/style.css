@@ -62,4 +62,7 @@ h1 {
 }
 .twtcst_image {
   display: block;
+  overflow: visible;
+  margin: 0.5em 0 0;
+  width: 1%;
 }
