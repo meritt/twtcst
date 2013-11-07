@@ -1,13 +1,11 @@
-
 params = (options) ->
-  return {
-    url: "https://stream.twitter.com/#{options.version}/statuses/filter.json"
-    oauth: options.oauth
-    form: include_entities: true
-  }
+  url: "https://stream.twitter.com/#{options.version}/statuses/filter.json"
+  oauth: options.oauth
+  form: include_entities: true
 
 module.exports = (options, beautify, validate, counter) ->
   params = params options
+
   return (fn) ->
     params.form.track = options.words.join ','
 
