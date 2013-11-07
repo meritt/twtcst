@@ -11,7 +11,7 @@
         , "email": "tavsophi@gmail.com"
       }
     ]
-  , "homepage": "http://simonenko.su/projects/twitter-conference"
+  , "homepage": "http://simonenko.su/projects/twtcst/"
   , "repository": {
         "type": "git"
       , "url": "https://github.com/serenity/twtcst.git"
@@ -27,9 +27,4 @@
       "coffee-script": "1.6.x"
     , "socket.io": "0.9.x"
   }
-  , "scripts": {
-      "build": "cake build"
-    , "start": "node examples/socket-server.js"
-  }
 }
-
