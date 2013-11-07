@@ -216,7 +216,7 @@ First the scripts puts an array of tweets get from search to console and then it
 Finally, you can view the working html page with stream of tweets. Just execute
 
 ```bash
-node examples/socket-server.js
+node examples/socket.js
 ```
 
 and open the examples/index.html in your browser.
