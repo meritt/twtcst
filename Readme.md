@@ -1,4 +1,4 @@
-# Twitter online conference
+# Twitter Broadcast
 
 It’s a nodejs module provide you easy interface to get the stream of tweets.
 
