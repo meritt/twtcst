@@ -6,5 +6,8 @@ module.exports = {
   'spam': [
     '"text/javascript"',
     'javascript:void(0)'
-  ]
+  ],
+  'media': {
+    'class': 'tweet_image'
+  }
 };
