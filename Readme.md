@@ -4,6 +4,28 @@ It’s a nodejs module provide you easy interface to get the stream of tweets.
 
 [Article about this in Russian in my blog.](http://simonenko.su/53381781858/pulse-of-web-developments)
 
+```js
+var twtcst = require('twtcst');
+
+// array of words you want to track
+var words = ['javascript', 'coffeescript'];
+
+// object contains your oauth tokens
+var oauth = {
+  'consumer_key': '',
+  'consumer_secret': '',
+  'token': '',
+  'token_secret': ''
+};
+
+var twitter = twtcst(words, oauth);
+
+// twitter stream api
+twitter.filter(function(error, tweet) {
+  console.log(tweet);
+});
+```
+
 ## Install with NPM
 
 ```bash
@@ -12,108 +34,75 @@ npm install twtcst
 
 ## API
 
-Fisrt you have to require twtcst with options:
+`twtcst` has third parameters for options.
 
 ```js
-var twtcst  = require('twtcst')(words, oauth, options);
+var twitter = twtcst(words, oauth, options);
 ```
-
-Where ```words``` is array of words you want to track, e. g.:
-
-```js
-var words = [
-  "#js",
-  "#javascript",
-  "js"
-];
-```
-
-```oauth``` is object contains your tokens, e. g.:
-
-```js
-var oauth = {
-  "consumer_key": "0123456789abcdefghijk",
-  "consumer_secret": "0123456789abcdefghijklmnopqrstuvwxyzABCDE",
-  "token": "01234567-01234567890abcdefghijklmnopqrstuvwxyzABCD",
-  "token_secret": "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHI"
-};
-```
-
-and ```options``` is object contains your options.
 
 ### Options
 
 All options are optional.
 
-**version** is string of Twitter Stream API version (1.1 by default)
+**version** is `string` of Twitter Stream API version (1.1 by default)
 
 ```js
-  "version": "1.1"
+"version": "1.1"
 ```
 
-**lang** is array of languages. If the language of tweet is not in the array,
-the tweet won’t be displayed.
+**lang** is `array` of languages. If the language of tweet is not in the array, the tweet won’t be displayed.
 
 ```js
-  "lang": [
-    "us",
-    "ru"
-  ]
+"lang": ["en", "ru"]
 ```
 
-**retweets** is boolean. If it is false retweets won’t be displayed. The 
-variable is true by default.
+**spam** is `array` of strings. Tweets contain one of the strings won’t be displayed.
 
 ```js
-  "retweets": false
+"spam": [
+  '"text/javascript"',
+  'javascript:void(0)'
+]
 ```
 
-**mentions** work as **retweets**. If it is false mentions won’t be displayed.
+**mute** is `array` of usernames. Tweets writen by people specified in this array won’t be displayed.
 
 ```js
-  "mentions": false
+"mute": [
+  "simonenko",
+  "isquariel"
+]
 ```
 
-**default_profile_images** is boolean. If it is false tweet posted by users with
-default avatar won’t be displayed.
+**retweets** is `boolean`. If it is `false` retweets won’t be displayed. The variable is `false` by default.
 
 ```js
-  "default_profile_images": false
+"retweets": false
 ```
 
-**spam** is array of strings. Tweets contain one of the strings won’t be
-displayed.
+**mentions** work as **retweets**. If it is `false` mentions won’t be displayed.
 
 ```js
-  "spam": [
-    '"text/javascript"',
-    'javascript:void(0)'
-  ]
+"mentions": false
 ```
 
-**mute** is array of usernames. Tweets writen by people specified in this array
-won’t be displayed.
+**userpics** is `boolean`. If it is `true` tweet posted by users with default avatar won’t be displayed.
 
 ```js
-  "mute": [
-    "marketing_007",
-    "spamuser"
-  ]
+"userpics": true
 ```
 
-**hashlength** is number defining max quantity of hashtags in tweets. Tweets
-contains more hashtags than specified won’t be displayed.
+**hashtags** is `number` defining max quantity of hashtags in tweets. Tweets contains more hashtags than specified won’t be displayed.
 
 ```js
-  "hashlength": 5
+"hashtags": 5
 ```
 
 **count** specify file where save tweet quantity filtered by your request
 
 ```js
-  "count": "count.txt"
+"count": "count.txt"
 ```
-
 
 ---
 
