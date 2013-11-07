@@ -15,6 +15,7 @@ class Counter
         if exists
           read()
         else
+          fromFile = true
           save()
 
   inc: ->
