@@ -1,26 +1,28 @@
-request = require 'request'
-qs      = require 'querystring'
+qs = require 'querystring'
 
-data =
-  result_type: 'recent'
-  count: 60
+params = (options) ->
+  data =
+    result_type: 'recent'
+    count: 60
+    q: options.words.join ' OR '
+
+  url: "https://api.twitter.com/#{options.version}/search/tweets.json?#{qs.stringify data}"
+  oauth: options.oauth
+  json: true
 
 module.exports = (options, beautify, validate, counter) ->
+  count = 10
+  params = params options
+
   return (fn) ->
-    count = 10
-    search = options.words.join ' OR '
-    data.q = search
-    params =
-      url: "https://api.twitter.com/#{options.version}/search/tweets.json?#{qs.stringify data}"
-      oauth: options.oauth
-      json: true
+    require('request').get params, (error, response, body) ->
+      if error
+        return fn error, false
 
-    request.get params, (error, response, body) ->
-      if error or response.statusCode isnt 200
-        console.log "Error fetching tweets from #{params.url}: #{error}" if error
-        return fn null
+      if response.statusCode isnt 200
+        return fn "Response code isnt 200 (#{response.statusCode})", false
 
-      tweets = body.statuses
+      tweets = body.statuses or []
       results = []
       while results.length isnt count and tweets.length > 0
         try
@@ -30,13 +32,11 @@ module.exports = (options, beautify, validate, counter) ->
 
         break unless tweet
 
-        continue if validate(tweet) is false
-
-        results.push beautify tweet, false
+        if validate tweet
+          results.push beautify tweet, false
 
       if counter
         n = counter.set results.length
-        for tweet in results
-          tweet.counter = n
+        tweet.counter = n for tweet in results
 
-      fn results
+      fn null, results
