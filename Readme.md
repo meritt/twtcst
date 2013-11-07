@@ -33,11 +33,12 @@ npm install twtcst
 ```
 
 
+
 ## API
 
 `twtcst` has three parameters. The first is `words` you want to search, the
-second is your OAuth token, and the third (optional) is options to define some
-filters, counters and views.
+second is your `oauth` tokens, and the third (optional) is `options` to define
+some filters, counters and views.
 
 ```js
 var twitter = twtcst(words, oauth, options);
@@ -45,7 +46,7 @@ var twitter = twtcst(words, oauth, options);
 
 The `twitter` object has two methods: `search` and `filter`.
 
-**twitter.search** takes a callback as an argument. The callback will be caused
+**search** takes a callback as an argument. The callback will be caused
 when all tweets are found. The first argument of callback is error (if it has
 occured) and the second is array of tweets.
 
@@ -59,7 +60,7 @@ twitter.search(function (error, tweets) {
 });
 ```
 
-**twitter.filter** cause callback and passed new tweet to it every time
+**filter** cause callback and passed new tweet to it every time
 new tweet appears in Twitter Stream. The filter pass to callback two options:
 `error` and `tweet`.
 
@@ -182,13 +183,50 @@ All options are optional.
 "count": "count.txt"
 ```
 
+
+
+## Development
+
+To get the source form Github execute
+```bash
+git clone git@github.com:serenity/twtcst.git
+npm link
+cake build
+```
+
+Then you should specify your access token in `examples/oauth.js`. Now you have a
+working example.
+
+To try `twtcst.filter` execute
+```bash
+node examples/filter.js
+```
+The script puts new tweet to console.
+
+To try `twtcst.search` execute
+```bash
+node examples/search.js
+```
+First the scripts puts an array of tweets get from search to console and then it
+will output tweets from stream.
+
+Finally, you can view the working html page with stream of tweets. Just execute
+```bash
+node examples/socket-server.js
+```
+and open the examples/index.html in your browser.
+
+
 ---
 
 
 ## Authors
 
-* [Alexey Simonenko](mailto:alexey@simonenko.su), [simonenko.su](http://simonenko.su)
-* [Sophia Ilinova](mailto:tavsophi@gmail.com)
+* [Alexey Simonenko](//github.com/meritt),
+[alexey@simonenko.su](mailto:alexey@simonenko.su),
+[simonenko.su](http://simonenko.su)
+* [Sophia Ilinova](//github.com/isquariel),
+[tavsophi@gmail.com](mailto:tavsophi@gmail.com)
 
 
 ## License
