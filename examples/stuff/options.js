@@ -3,6 +3,7 @@ module.exports = {
   'retweets': false,
   'mentions': false,
   'count': true,
+  'count_file': 'count.txt',
   'spam': [
     '"text/javascript"',
     'javascript:void(0)'

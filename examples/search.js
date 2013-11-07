@@ -1,7 +1,7 @@
 "use strict";
 
-var oauth = require('./oauth'),
-options = require('./options'),
+var oauth = require('./stuff/oauth'),
+options = require('./stuff/options'),
 twtcst  = require('./../lib/index'),
 
 twitter = twtcst(['#js', '#nodejs'], oauth, options);
