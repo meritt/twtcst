@@ -60,6 +60,9 @@ h1 {
   margin-left: -80px;
   border: none;
 }
-.twtcst-image {
+.twtcst_image {
   display: block;
+  overflow: visible;
+  margin: 0.5em 0 0;
+  width: 1%;
 }

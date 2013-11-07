@@ -18,6 +18,11 @@ defaults =
   userpics: true     # hide twitter accounts with default userpic
   hashtags: 5        # maximum hashtags in text
 
+  media:
+    width: 500
+    height: 500
+    class: 'twtcst_image'
+
 oauth_error = """You must specify oauth tokens, for example:
 oauth = {
   consumer_key: ''

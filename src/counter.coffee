@@ -22,6 +22,11 @@ class Counter
     save()
     counter
 
+  set: (n) ->
+    counter += n
+    save()
+    counter
+
   read = ->
     fs.readFile file, (err, data) ->
       if err

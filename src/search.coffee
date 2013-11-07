@@ -5,7 +5,7 @@ data =
   result_type: 'recent'
   count: 60
 
-module.exports = (options, beautify, validate) ->
+module.exports = (options, beautify, validate, counter) ->
   return (fn) ->
     count = 10
     search = options.words.join ' OR '
@@ -33,5 +33,10 @@ module.exports = (options, beautify, validate) ->
         continue if validate(tweet) is false
 
         results.push beautify tweet, false
+
+      if counter
+        n = counter.set results.length
+        for tweet in results
+          tweet.counter = n
 
       fn results

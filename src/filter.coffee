@@ -6,7 +6,7 @@ params = (options) ->
     form: include_entities: true
   }
 
-module.exports = (options, beautify, validate) ->
+module.exports = (options, beautify, validate, counter) ->
   params = params options
   return (fn) ->
     params.form.track = options.words.join ','
@@ -22,5 +22,6 @@ module.exports = (options, beautify, validate) ->
 
       if validate tweet
         tweet = beautify tweet, false
+        tweet.counter = counter.inc() if counter
 
         fn null, tweet
