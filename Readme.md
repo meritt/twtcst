@@ -32,13 +32,9 @@ twitter.filter(function(error, tweet) {
 npm install twtcst
 ```
 
-
-
 ## API
 
-`twtcst` has three parameters. The first is `words` you want to search, the
-second is your `oauth` tokens, and the third (optional) is `options` to define
-some filters, counters and views.
+`twtcst` has three parameters. The first is `words` you want to search, the second is your `oauth` tokens, and the third (optional) is `options` to define some filters, counters and views.
 
 ```js
 var twitter = twtcst(words, oauth, options);
@@ -46,29 +42,23 @@ var twitter = twtcst(words, oauth, options);
 
 The `twitter` object has two methods: `search` and `filter`.
 
-**search** takes a callback as an argument. The callback will be caused
-when all tweets are found. The first argument of callback is error (if it has
-occured) and the second is array of tweets.
+**search** implement [Twitter Search API](http://dev.twitter.com/docs/api/1.1/get/search/tweets). It takes a callback as an argument. The callback will be caused when all tweets are found. The first argument of callback is error (if it has occured) and the second is array of tweets.
 
 ```js
-twitter.search(function (error, tweets) {
+twitter.search(function(error, tweets) {
   if (tweets) {
-    for (var i = 0; i < tweets.length; i++) {
-      message(tweets[i]);
-    }
+    tweets.forEach(function(tweet) {
+      message(tweet);
+    });
   }
 });
 ```
 
-**filter** cause callback and passed new tweet to it every time
-new tweet appears in Twitter Stream. The filter pass to callback two options:
-`error` and `tweet`.
+**filter** implement [Twitter Streaming API](http://dev.twitter.com/docs/api/1.1/post/statuses/filter). It cause callback and passed new tweet to it every time new tweet appears in Twitter Stream. The filter pass to callback two options: `error` and `tweet`.
 
 ```js
-twitter.filter(function (error, tweet) {
-  if (error) {
-    console.log(error);
-  } else {
+twitter.filter(function(error, tweet) {
+  if (tweet) {
     message(tweet);
   }
 });
@@ -89,35 +79,29 @@ twitter.filter(function (error, tweet) {
 }
 ```
 
-
 ### Words
 
-`words` is array contains words you want to search. It also can contains
-hashtags started with hash, e.g.:
+`words` is array contains words you want to search. It also can contains hashtags started with hash, e.g.:
 
 ```js
-words = [
-  "#js",
-  "#nodejs",
+var words = [
+  "#javascript",
   "#coffeescript"
-]
+];
 ```
 
+### OAuth tokens
 
-### OAuth
+`oauth` is an object in format required by Twitter API. You can get tokens by [creating new app](http://dev.twitter.com/apps/new) or [from existing app](http://dev.twitter.com/apps).
 
-`oauth` is an object in format required by Twitter API. You can get tokens by
-[creating new app](https://dev.twitter.com/apps/new) or [from existing
-app](https://dev.twitter.com/apps).
 ```js
-oauth = {
+var oauth = {
   'consumer_key': '',
   'consumer_secret': '',
   'token': '',
   'token_secret': ''
 };
 ```
-
 
 ### Options
 
@@ -139,8 +123,8 @@ All options are optional.
 
 ```js
 "spam": [
-  '"text/javascript"',
-  'javascript:void(0)'
+  'text/javascript',
+  'jquery'
 ]
 ```
 
@@ -180,55 +164,53 @@ All options are optional.
 **count** specify file where save tweet quantity filtered by your request
 
 ```js
-"count": "count.txt"
+"count": false
 ```
-
-
 
 ## Development
 
 To get the source form Github execute
+
 ```bash
 git clone git@github.com:serenity/twtcst.git
 cd twtcst
+
 npm link
 cake build
 ```
 
-Then you should specify your access token in `examples/oauth.js`. Now you have a
-working example.
+Then you should specify your access token in `examples/staff/oauth.js`. Now you have a working example.
 
 To try `twtcst.filter` execute
+
 ```bash
 node examples/filter.js
 ```
+
 The script puts new tweet to console.
 
 To try `twtcst.search` execute
+
 ```bash
 node examples/search.js
 ```
-First the scripts puts an array of tweets get from search to console and then it
-will output tweets from stream.
+
+First the scripts puts an array of tweets get from search to console and then it will output tweets from stream.
 
 Finally, you can view the working html page with stream of tweets. Just execute
+
 ```bash
 node examples/socket-server.js
 ```
-and open the examples/index.html in your browser.
 
+and open the examples/index.html in your browser.
 
 ---
 
-
 ## Authors
 
-* [Alexey Simonenko](//github.com/meritt),
-[alexey@simonenko.su](mailto:alexey@simonenko.su),
-[simonenko.su](http://simonenko.su)
-* [Sophia Ilinova](//github.com/isquariel),
-[tavsophi@gmail.com](mailto:tavsophi@gmail.com)
-
+* [Alexey Simonenko](//github.com/meritt), [alexey@simonenko.su](mailto:alexey@simonenko.su), [simonenko.su](http://simonenko.su)
+* [Sophia Ilinova](//github.com/isquariel), [tavsophi@gmail.com](mailto:tavsophi@gmail.com)
 
 ## License
 
