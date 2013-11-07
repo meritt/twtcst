@@ -15,6 +15,7 @@ class Counter
         if exists
           read()
         else
+          fromFile = true
           save()
 
   inc: ->
@@ -42,6 +43,7 @@ class Counter
           console.log err
           fromFile = false
         else
+          console.log counter
           fromFile = true
 
 
