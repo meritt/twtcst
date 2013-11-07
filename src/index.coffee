@@ -7,7 +7,7 @@ validate = require './validate'
 
 defaults =
   version: 1.1       # Twitter API version
-  count: false       # 
+  count: false       #
 
   lang: ['en', 'ru'] # list of languages
   mute: []           # list of blocked twitter accounts
@@ -60,8 +60,8 @@ module.exports = (words, oauth = {}, options = {}) ->
   else
     counter = null
 
-  beautify = beautify options, counter
-  validate = validate options
+  _beautify = beautify options
+  _validate = validate options
 
-  filter: filter options, beautify, validate
-  search: search options, beautify, validate
+  filter: filter options, _beautify, _validate, counter
+  search: search options, _beautify, _validate, counter
