@@ -5,17 +5,17 @@ It’s a nodejs module provide you easy interface to get the stream of tweets.
 [Article about this in Russian in my blog.](http://simonenko.su/53381781858/pulse-of-web-developments)
 
 ```js
-var twtcst = require('twtcst');
+var twtcst = require("twtcst");
 
 // array of words you want to track
-var words = ['javascript', 'coffeescript'];
+var words = ["javascript", "coffeescript"];
 
 // object contains your oauth tokens
 var oauth = {
-  'consumer_key': '',
-  'consumer_secret': '',
-  'token': '',
-  'token_secret': ''
+  "consumer_key": "",
+  "consumer_secret": "",
+  "token": "",
+  "token_secret": ""
 };
 
 var twitter = twtcst(words, oauth);
@@ -96,10 +96,10 @@ var words = [
 
 ```js
 var oauth = {
-  'consumer_key': '',
-  'consumer_secret': '',
-  'token': '',
-  'token_secret': ''
+  "consumer_key": "",
+  "consumer_secret": "",
+  "token": "",
+  "token_secret": ""
 };
 ```
 
@@ -123,8 +123,8 @@ All options are optional.
 
 ```js
 "spam": [
-  'text/javascript',
-  'jquery'
+  "text/javascript",
+  "jquery"
 ]
 ```
 
