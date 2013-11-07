@@ -1,16 +1,14 @@
-
 params = (options) ->
-  return {
-    url: "https://stream.twitter.com/#{options.version}/statuses/filter.json"
-    oauth: options.oauth
-    form: include_entities: true
-  }
+  url: "https://stream.twitter.com/#{options.version}/statuses/filter.json"
+  oauth: options.oauth
+  form:
+    include_entities: true
+    track: options.words.join ','
 
 module.exports = (options, beautify, validate, counter) ->
   params = params options
-  return (fn) ->
-    params.form.track = options.words.join ','
 
+  return (fn) ->
     request = require('request').post params, (error, response, body) ->
       fn error, false if error
 
