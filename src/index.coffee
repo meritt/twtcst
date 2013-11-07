@@ -1,5 +1,7 @@
 "use strict"
 
+v = require 'valentine'
+
 filter   = require './filter'
 search   = require './search'
 beautify = require './beautify'
@@ -25,7 +27,6 @@ defaults =
     height: 500
     class: 'twtcst_image'
 
-
 oauth_error = """You must specify oauth tokens, for example:
 oauth = {
   consumer_key: ''
@@ -35,19 +36,6 @@ oauth = {
 }
 """
 
-
-merge = (obj1, obj2) ->
-  for own key, value of obj2
-    try
-      if value.constructor is Object
-        obj1[key] = merge obj1[key], value
-      else
-        obj1[key] = value
-    catch e
-      obj1[key] = value
-  return obj1
-
-
 parse = (words, oauth, params) ->
   if not words or words.length < 1
     throw new Error 'Set words for search'
@@ -55,9 +43,8 @@ parse = (words, oauth, params) ->
   unless oauth.consumer_key and oauth.consumer_secret and oauth.token and oauth.token_secret
     throw new Error oauth_error
 
-  options = JSON.parse JSON.stringify defaults
-
-  options = merge options, params
+  options = v.extend {}, defaults
+  options = v.extend options, params
 
   if options.hashtags
     options.hashtags = parseInt options.hashtags, 10
@@ -67,7 +54,6 @@ parse = (words, oauth, params) ->
   options.oauth = oauth
 
   options
-
 
 module.exports = (words, oauth = {}, options = {}) ->
   options = parse words, oauth, options

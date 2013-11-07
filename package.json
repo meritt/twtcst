@@ -22,6 +22,7 @@
   , "dependencies": {
       "twitter-text": "1.6.x"
     , "request": "2.27.x"
+    , "valentine": "1.8.x"
   }
   , "devDependencies": {
       "coffee-script": "1.6.x"
