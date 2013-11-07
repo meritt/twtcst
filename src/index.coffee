@@ -15,6 +15,10 @@ defaults =
   lang: []
   mute: []
   spam: []
+  media:
+    width: 500
+    height: 500
+    class: "twtcst_image"
 
 oauth_error = """You must specify oauth in your options object:
 oauth = {
@@ -53,9 +57,8 @@ module.exports = (words, oauth = {}, options = {}) ->
   else
     counter = null
 
-  beautify = beautify options, counter
+  beautify = beautify options
   validate = validate options
 
-
-  filter: filter options, beautify, validate
-  search: search options, beautify, validate
+  filter: filter options, beautify, validate, counter
+  search: search options, beautify, validate, counter

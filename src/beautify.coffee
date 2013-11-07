@@ -4,22 +4,22 @@ expandEntity = (text, entity) ->
   text = text.replace entity.url, entity.expanded_url
   text = text.replace entity.url, entity.display_url
 
-getImage = (entity) ->
+getImage = (entity, standard) ->
 
   media =
     url: entity.media_url
-    w: parseInt entity.sizes.small.w, 10
-    h: parseInt entity.sizes.small.h, 10
+    w: parseInt entity.sizes.medium.w, 10
+    h: parseInt entity.sizes.medium.h, 10
 
-  if media.h > 150
-    media.w = parseInt media.w * 150 / media.h, 10
-    media.h = 150
+  if media.h > standard.height
+    media.w = parseInt media.w * standard.height / media.h, 10
+    media.h = standard.height
 
-  if media.w > 500
-    media.h = parseInt media.h * 500 / media.w, 10
-    media.w = 500
+  if media.w > standard.width
+    media.h = parseInt media.h * standard.width / media.w, 10
+    media.w = standard.width
 
-  inline = "<a href=\"#{media.url}\" class=\"twtcst-image\" target=\"_blank\">"
+  inline = "<a href=\"#{media.url}\" class=\"#{standard.class}\" target=\"_blank\">"
   inline += "<img src=\"#{media.url}\" width=\"#{media.w}\" height=\"#{media.h}\">"
   inline += "</a>"
 
@@ -40,7 +40,7 @@ module.exports = (options, counter) ->
     if result.entities.media? and result.entities.media.length > 0
       for entity in result.entities.media
         text = expandEntity text, entity
-        inline = getImage entity
+        inline = getImage entity, options.media
 
 
     result.text = text
@@ -63,6 +63,4 @@ module.exports = (options, counter) ->
       date: created
       iso: date.toISOString()
 
-    data.counter = counter.inc() if counter
-    
     data
