@@ -190,6 +190,7 @@ All options are optional.
 To get the source form Github execute
 ```bash
 git clone git@github.com:serenity/twtcst.git
+cd twtcst
 npm link
 cake build
 ```
