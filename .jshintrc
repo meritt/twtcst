@@ -1,0 +1,8 @@
+{
+    "node": true
+  , "browser": false
+  , "strict": true
+  , "laxbreak": true
+  , "laxcomma": true
+  , "camelcase": true
+}

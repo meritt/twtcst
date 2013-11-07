@@ -1,0 +1,73 @@
+body {
+  margin: 0;
+  padding: 0;
+  font: 100%/1.5 'PT Sans', 'Helvetica Neue', 'Arial', sans;
+}
+.container {
+  margin: 0 auto;
+  padding: 2em 0;
+  max-width: 1000px;
+}
+h1 {
+  border-bottom: 1px solid #ddd;
+  font-weight: 400;
+  font-size: 2em;
+}
+.twtcst_indicator {
+  display: inline-block;
+  margin: 0 5px 0 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #ed5437;
+  transition: background-color 1s;
+}
+.twtcst_indicator.online {
+  background-color: #71c18b;
+}
+.tweet_count {
+  color: #999;
+  font-size: 0.75em;
+}
+#tweets {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tweet {
+  padding: 1.5em 0 1.5em 80px;
+  min-height: 80px;
+  border-bottom: 1px solid #ddd;
+}
+.tweet_userlink {
+  text-decoration: none;
+}
+.tweet_author {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  font-weight: 700;
+  font-size: inherit;
+}
+.tweet_login {
+  color: #999;
+  font-weight: normal;
+  font-size: inherit;
+}
+.tweet_pic {
+  float: left;
+  margin: 0;
+  margin-left: -80px;
+  border: none;
+}
+.tweet_image {
+  display: block;
+  overflow: visible;
+  margin: 0.5em 0 0;
+  width: 1%;
+}
+.tweet_time {
+  float: right;
+  color: #999;
+}
