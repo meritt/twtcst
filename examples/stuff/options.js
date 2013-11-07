@@ -1,14 +1,27 @@
 module.exports = {
   'lang': ['en', 'ru'],
+
+  'mute': [
+    'simonenko',
+    'isquariel'
+  ],
+
+  'spam': [
+    'text/javascript',
+    'jquery'
+  ],
+
   'retweets': false,
   'mentions': false,
-  'count': true,
-  'count_file': 'count.txt',
-  'spam': [
-    '"text/javascript"',
-    'javascript:void(0)'
-  ],
+  'userpics': true,
+  'hashtags': 5,
+
+  'count': false,
+  'storage': false,
+
   'media': {
+    'width': 500,
+    'height': 500,
     'class': 'tweet_image'
   }
 };

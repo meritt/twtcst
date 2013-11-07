@@ -1,15 +1,17 @@
 "use strict";
 
-var oauth = require('./stuff/oauth'),
+var twtcst = require('./../lib/index'),
+
+oauth = require('./stuff/oauth'),
 options = require('./stuff/options'),
-twtcst  = require('./../lib/index'),
 
 twitter = twtcst(['#js', '#nodejs'], oauth, options);
 
-twitter.search(function (error, tweets) {
+twitter.search(function(error, tweets) {
   console.log(tweets);
-  twitter.filter(function (error, tweet) {
-    if (!error) {
+
+  twitter.filter(function(error, tweet) {
+    if (tweet) {
       console.log(tweet);
     }
   });

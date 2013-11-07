@@ -179,7 +179,7 @@ All options are optional.
 "media": {
   "width": 500,
   "height": 500,
-  "class": "twtcst_image"
+  "class": "tweet_image"
 }
 ```
 

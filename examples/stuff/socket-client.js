@@ -1,5 +1,4 @@
 (function(window) {
-
   "use strict";
 
   var interval = 3000,
@@ -12,7 +11,7 @@
 
   var messages = [],
       keys = [],
-      socket = io.connect('http://127.0.0.1:3065'),
+      socket = io.connect('http://127.0.0.1:8080'),
       storage = window.sessionStorage,
       container = document.querySelector('#tweets'),
       indicator = document.querySelector('.twtcst_indicator'),

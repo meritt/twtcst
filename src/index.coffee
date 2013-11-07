@@ -8,24 +8,24 @@ beautify = require './beautify'
 validate = require './validate'
 
 defaults =
-  version: 1.1       # Twitter API version
+  version: 1.1           # Twitter API version
 
-  lang: ['en', 'ru'] # list of languages
-  mute: []           # list of blocked twitter accounts
-  spam: []           # list of blocked keywords in text
+  lang: ['en', 'ru']     # list of languages
+  mute: []               # list of blocked twitter accounts
+  spam: []               # list of blocked keywords in text
 
-  retweets: false    # show old retweets
-  mentions: false    # show mentions
-  userpics: true     # hide twitter accounts with default userpic
-  hashtags: 5        # maximum hashtags in text
+  retweets: false        # show old retweets
+  mentions: false        # show mentions
+  userpics: true         # hide twitter accounts with default userpic
+  hashtags: 5            # maximum hashtags in text
 
-  count: false       # count tweets
-  storage: false     # file where save the counter
+  count: false           # count tweets
+  storage: false         # file where save the counter
 
-  media:             # settings for images
-    width: 500            # max width of images in tweets
-    height: 500           # max height of images in tweets
-    class: 'twtcst_image' # class will be added to links around images
+  media:                 # settings for images
+    width: 500           # max width of images in tweets
+    height: 500          # max height of images in tweets
+    class: 'tweet_image' # class will be added to links around images
 
 oauth_error = """You must specify oauth tokens, for example:
 oauth = {

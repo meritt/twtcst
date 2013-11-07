@@ -1,15 +1,17 @@
 "use strict";
 
-var oauth = require('./stuff/oauth'),
+var twtcst = require('./../lib/index'),
+
+oauth = require('./stuff/oauth'),
 options = require('./stuff/options'),
-twtcst  = require('./../lib/index'),
 
 twitter = twtcst(['#js', '#nodejs'], oauth, options),
 
 clients = [],
-io = require('socket.io').listen(3065, { "origins": '*:*'});
 
-function message (data) {
+io = require('socket.io').listen(8080);
+
+function message(data) {
   for (var i = 0, client = clients[i]; i < clients.length; i++) {
     if (client.disconnected === false) {
       client.emit('tweet', JSON.stringify(data));
@@ -17,14 +19,13 @@ function message (data) {
   }
 }
 
-io.set('transports', ['websocket', 'xhr-polling']);
-
 io.sockets.on('connection', function(socket) {
   clients.push(socket);
-  socket.on('search', function () {
-    twitter.search(function (error, tweets) {
+
+  socket.on('search', function() {
+    twitter.search(function(error, tweets) {
       if (tweets) {
-        for (var i = 0; i < tweets.length; i++) {
+        for (var i = 0, length = tweets.length; i < length; i++) {
           message(tweets[i]);
         }
       }
@@ -32,12 +33,8 @@ io.sockets.on('connection', function(socket) {
   });
 });
 
-
 twitter.filter(function(error, tweet) {
-  if (error) {
-    console.log(error);
-  } else {
+  if (tweet) {
     message(tweet);
   }
 });
-
