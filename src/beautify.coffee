@@ -3,9 +3,9 @@ twitter = require 'twitter-text'
 expandEntity = (text, entity) ->
   text = text.replace entity.url, entity.expanded_url
   text = text.replace entity.url, entity.display_url
+  text
 
 getImage = (entity, standard) ->
-
   media =
     url: entity.media_url
     w: parseInt entity.sizes.medium.w, 10
@@ -22,45 +22,52 @@ getImage = (entity, standard) ->
   inline = "<a href=\"#{media.url}\" class=\"#{standard.class}\" target=\"_blank\">"
   inline += "<img src=\"#{media.url}\" width=\"#{media.w}\" height=\"#{media.h}\">"
   inline += "</a>"
+  inline
 
 pad = (n) -> if n < 10 then "0#{n}" else n
 
 module.exports = (options, counter) ->
-  return (result, auto = true) ->
+  return (tweet, auto = true) ->
     if auto is true
-      text = twitter.autoLink result.text, target: '_blank'
+      text = twitter.autoLink tweet.text, target: '_blank'
     else
-      text = twitter.autoLinkUrlsCustom result.text, target: '_blank'
+      text = twitter.autoLinkUrlsCustom tweet.text, target: '_blank'
 
-    if result.entities.urls? and result.entities.urls.length > 0
-      for entity in result.entities.urls
+    if tweet.entities.urls? and tweet.entities.urls.length > 0
+      for entity in tweet.entities.urls
         text = expandEntity text, entity
 
     inline = false
-    if result.entities.media? and result.entities.media.length > 0
-      for entity in result.entities.media
+    if tweet.entities.media? and tweet.entities.media.length > 0
+      for entity in tweet.entities.media
         text = expandEntity text, entity
         inline = getImage entity, options.media
 
+    tweet.text = text
+    tweet.text += "\n#{inline}" if inline
 
-    result.text = text
-    result.text += inline if inline
-
-    image = result.user.profile_image_url
+    image = tweet.user.profile_image_url
     pos = image.lastIndexOf '_'
-    result.user.profile_image_url = "#{image.substring(0, pos)}_bigger#{image.substring(pos + 7)}"
+    tweet.user.profile_image_url = "#{image.substring(0, pos)}_bigger#{image.substring(pos + 7)}"
 
-    date = new Date result.created_at
-    created = "#{date.getFullYear()}-#{pad(date.getMonth() + 1)}-#{pad(date.getDate())} #{pad(date.getHours())}:#{pad(date.getMinutes())}"
+    created = new Date tweet.created_at
 
-    data =
-      id: result.id_str
-      link: "http://twitter.com/#{result.user.screen_name}"
-      avatar: result.user.profile_image_url
-      login: result.user.screen_name
-      name: result.user.name or result.user.screen_name
-      text: result.text
-      date: created
-      iso: date.toISOString()
+    date = [
+      created.getFullYear()
+      pad created.getMonth() + 1
+      pad created.getDate()
+    ]
 
-    data
+    time = [
+      pad created.getHours()
+      pad created.getMinutes()
+    ]
+
+    id: tweet.id_str
+    link: "http://twitter.com/#{tweet.user.screen_name}"
+    avatar: tweet.user.profile_image_url
+    login: tweet.user.screen_name
+    name: tweet.user.name or tweet.user.screen_name
+    text: tweet.text
+    date: date.join('-') + ' ' + time.join(':')
+    iso: date.toISOString()
