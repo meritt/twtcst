@@ -43,6 +43,7 @@ h1 {
   text-decoration: none;
 }
 .tweet_author {
+  display: inline-block;
   margin: 0;
   padding: 0;
   color: #333;
@@ -65,4 +66,8 @@ h1 {
   overflow: visible;
   margin: 0.5em 0 0;
   width: 1%;
+}
+.tweet_time {
+  float: right;
+  color: #999;
 }

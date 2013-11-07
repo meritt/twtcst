@@ -161,10 +161,29 @@ All options are optional.
 "hashtags": 5
 ```
 
-**count** specify file where save tweet quantity filtered by your request
+**count** is boolean. If it is true filter will be send count of all tweets with
+every tweet else it won’t.
 
 ```js
-"count": false
+"count": true
+```
+
+**storage** specify file where save tweet quantity filtered by your request. It
+will be used only if **count** is true.
+
+```js
+"storage": "count.txt"
+```
+
+**media** specify settings for images in tweets. You can specify width and
+height of images and class of links images wrapped in.
+
+```js
+"media": {
+  "width": 100,
+  "height": 100,
+  "class": "link_class"
+}
 ```
 
 ## Development

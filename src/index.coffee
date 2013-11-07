@@ -19,13 +19,13 @@ defaults =
   userpics: true     # hide twitter accounts with default userpic
   hashtags: 5        # maximum hashtags in text
 
-  count: false       #
-  storage: false     #
+  count: false       # count tweets
+  storage: false     # file where save the counter
 
-  media:
-    width: 500
-    height: 500
-    class: 'twtcst_image'
+  media:             # settings for images
+    width: 500            # max width of images in tweets
+    height: 500           # max height of images in tweets
+    class: 'twtcst_image' # class will be added to links around images
 
 oauth_error = """You must specify oauth tokens, for example:
 oauth = {
