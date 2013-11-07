@@ -13,10 +13,11 @@
   var messages = [],
       keys = [],
       socket = io.connect('http://127.0.0.1:3065'),
+      storage = window.sessionStorage,
       container = document.querySelector('#tweets'),
       indicator = document.querySelector('.twtcst_indicator'),
       counter = document.querySelector('.tweet_count'),
-      saved = window.localStorage.getItem("twtcst"),
+      saved = storage.getItem("twtcst"),
       template = document.querySelector('#tweet-template').innerHTML;
 
   function mustache (a, b) {
@@ -45,7 +46,7 @@
       while (container.children.length > max) {
         container.removeChild(container.lastElementChild);
       }
-      window.localStorage.setItem("twtcst", container.innerHTML);
+      storage.setItem("twtcst", container.innerHTML);
     }
   }
 
