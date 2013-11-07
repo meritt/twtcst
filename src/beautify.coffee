@@ -70,4 +70,4 @@ module.exports = (options, counter) ->
     name: tweet.user.name or tweet.user.screen_name
     text: tweet.text
     date: date.join('-') + ' ' + time.join(':')
-    iso: date.toISOString()
+    iso: created.toISOString()
