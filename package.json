@@ -2,7 +2,7 @@
     "name": "twtcst"
   , "version": "0.3.0"
   , "main": "./lib/index.js"
-  , "description": "Twitter online conference"
+  , "description": "Twitter Broadcast"
   , "keywords": ["twitter", "stream", "websocket", "socket.io", "conference", "broadcast"]
   , "author": "Alexey Simonenko <alexey@simonenko.su>"
   , "contributors": [
