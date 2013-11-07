@@ -43,7 +43,6 @@ class Counter
           console.log err
           fromFile = false
         else
-          console.log counter
           fromFile = true
 
 
