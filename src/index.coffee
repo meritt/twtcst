@@ -5,12 +5,6 @@ v = require 'valentine'
 filter   = require './filter'
 search   = require './search'
 
-defaults =
-  version: 1.1           # Twitter API version
-
-  count: false           # count tweets
-  storage: false         # file where save the counter
-
 oauth_error = """You must specify oauth tokens, for example:
 oauth = {
   consumer_key: ''
@@ -20,28 +14,19 @@ oauth = {
 }
 """
 
-parse = (words, oauth, params) ->
+parse = (words, oauth) ->
   if not words or words.length < 1
     throw new Error 'Set words for search'
 
   unless oauth.consumer_key and oauth.consumer_secret and oauth.token and oauth.token_secret
     throw new Error oauth_error
 
-  options = v.extend {}, defaults
-  options = v.extend options, params
-
-  options.words = words
-  options.oauth = oauth
-
-  options
+  words: words
+  oauth: oauth
 
 module.exports = (words, oauth = {}, options = {}) ->
-  options = parse words, oauth, options
 
-  if options.count is true
-    counter = require('./counter') options.storage
-  else
-    counter = null
+  options = parse words, oauth
 
   validate:   require './validate'
   blockUsers: require './validate_block_users'
@@ -58,5 +43,5 @@ module.exports = (words, oauth = {}, options = {}) ->
   humanDate:      require './beautify_human_date'
   twtcstFormat:   require './beautify_twtcst_format'
 
-  filter: filter options, counter
-  search: search options, counter
+  filter: filter options
+  search: search options

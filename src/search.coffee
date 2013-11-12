@@ -6,11 +6,11 @@ params = (options) ->
     count: 60
     q: options.words.join ' OR '
 
-  url: "https://api.twitter.com/#{options.version}/search/tweets.json?#{qs.stringify data}"
+  url: "https://api.twitter.com/1.1/search/tweets.json?#{qs.stringify data}"
   oauth: options.oauth
   json: true
 
-module.exports = (options, counter) ->
+module.exports = (options) ->
   count = 10
   params = params options
 
@@ -35,9 +35,5 @@ module.exports = (options, counter) ->
         if validate tweet
           tweet = beautify tweet if beautify
           results.push tweet
-
-      if counter
-        n = counter.set results.length
-        tweet.counter = n for tweet in results
 
       fn null, results

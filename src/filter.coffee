@@ -1,11 +1,11 @@
 params = (options) ->
-  url: "https://stream.twitter.com/#{options.version}/statuses/filter.json"
+  url: "https://stream.twitter.com/1.1/statuses/filter.json"
   oauth: options.oauth
   form:
     include_entities: true
     track: options.words.join ','
 
-module.exports = (options, counter) ->
+module.exports = (options) ->
   params = params options
 
   (validate, beautify, fn) ->
@@ -20,6 +20,5 @@ module.exports = (options, counter) ->
 
       if validate tweet
         tweet = beautify tweet, false if beautify
-        tweet.counter = counter.inc() if counter
 
         fn null, tweet

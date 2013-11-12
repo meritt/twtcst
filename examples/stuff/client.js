@@ -2,8 +2,7 @@
   "use strict";
 
   var interval = 3000,
-      max = 20,
-      show_count = true;
+      max = 20;
 
   if (!window.io) {
     return;
@@ -15,7 +14,6 @@
       storage = window.sessionStorage,
       container = document.querySelector('#tweets'),
       indicator = document.querySelector('.twtcst_indicator'),
-      counter = document.querySelector('.tweet_count'),
       saved = storage.getItem("twtcst"),
       template = document.querySelector('#tweet-template').innerHTML;
 
@@ -37,9 +35,6 @@
     if (messages.length > 0) {
       var tweet = messages.pop();
       delete keys[tweet.id];
-      if (show_count && tweet.counter) {
-        counter.innerHTML = '('+tweet.counter+' tweets)';
-      }
       tweet = parse(tweet);
       container.insertBefore(tweet, container.firstElementChild);
       while (container.children.length > max) {

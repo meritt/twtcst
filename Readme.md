@@ -37,10 +37,10 @@ npm install twtcst
 
 ## API
 
-`twtcst` has three parameters. The first is `words` you want to search, the second is your `oauth` tokens, and the third (optional) is `options`.
+`twtcst` has two parameters. The first is `words` you want to search and the second is your `oauth` tokens.
 
 ```js
-var twitter = twtcst(words, oauth, options);
+var twitter = twtcst(words, oauth);
 ```
 
 The `twitter` object has two methods: `search` and `filter`.
@@ -91,28 +91,6 @@ var oauth = {
   "token": "",
   "token_secret": ""
 };
-```
-
-### Options
-
-All options are optional.
-
-**version** is `string` of Twitter Stream API version (1.1 by default)
-
-```js
-"version": "1.1"
-```
-
-**count** is boolean. If it is true filter will be send count of all tweets with every tweet else it won’t.
-
-```js
-"count": true
-```
-
-**storage** specify file where save tweet quantity filtered by your request. It will be used only if **count** is true.
-
-```js
-"storage": "count.txt"
 ```
 
 ### Validate

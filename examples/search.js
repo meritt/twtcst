@@ -3,9 +3,8 @@
 var twtcst = require('./../lib/index'),
 
 oauth = require('./stuff/oauth'),
-options = require('./stuff/options'),
 
-twitter = twtcst(['#js', '#nodejs'], oauth, options),
+twitter = twtcst(['#js', '#nodejs'], oauth),
 
 validate = twitter.validate([
   twitter.allowLangs(['en', 'ru']),
