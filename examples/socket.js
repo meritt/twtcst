@@ -23,7 +23,7 @@ beautify = twitter.beautify([
     "media": {
       "width": 500,
       "height": 500,
-      "class": 'tweet_image'
+      "class": "tweet_image"
     }
   }),
   twitter.humanDate(),
@@ -34,10 +34,10 @@ clients = [],
 
 io = require('socket.io').listen(8080);
 
-function message (data) {
-  for (var i = 0; i < clients.length; i++) {
+function message(data) {
+  for (var i = 0, length = clients.length; i < length; i++) {
     if (clients[i].disconnected === false) {
-      clients[i].emit('tweet', JSON.stringify(data));
+      clients[i].send(JSON.stringify(data));
     }
   }
 }

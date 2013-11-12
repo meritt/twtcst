@@ -9,18 +9,18 @@
       storage = window.sessionStorage,
       container = document.querySelector('#tweets'),
       indicator = document.querySelector('.twtcst_indicator'),
-      saved = storage.getItem("twtcst"),
+      saved = storage.getItem('twtcst'),
       template = document.querySelector('#tweet-template').innerHTML;
 
-  function mustache (a, b) {
+  function mustache(a, b) {
     return (a + '').replace(/\{([^{}]+)\}/g, function(c, d) {
       return d in (b || {}) ? (/^f/.test(typeof b[d]) ? b[d]() : b[d]) : c;
     });
   }
 
-  function parse (tweet) {
+  function parse(tweet) {
     var li = document.createElement('li');
-    li.setAttribute('id', 'tweet_'+tweet.id);
+    li.setAttribute('id', 'tweet_' + tweet.id);
     li.classList.add('tweet');
     li.innerHTML = mustache(template, tweet);
     return li;
@@ -31,10 +31,12 @@
       var tweet = messages.pop();
       tweet = parse(tweet);
       container.insertBefore(tweet, container.firstElementChild);
+
       while (container.children.length > max) {
         container.removeChild(container.lastElementChild);
       }
-      storage.setItem("twtcst", container.innerHTML);
+
+      storage.setItem('twtcst', container.innerHTML);
     }
   }
 
@@ -43,15 +45,17 @@
     update();
   }
 
-  socket.on('connect', function () {
+  socket.on('connect', function() {
     indicator.classList.add('online');
     socket.emit('search');
   }); 
-  socket.on('tweet', function (result) {
+
+  socket.on('message', function(result) {
     result = JSON.parse(result);
     messages.push(result);
   });
-  socket.on('disconnect', function () {
+
+  socket.on('disconnect', function() {
     indicator.classList.remove('online');
   });
 

@@ -23,7 +23,7 @@ beautify = twitter.beautify([
     "media": {
       "width": 500,
       "height": 500,
-      "class": 'tweet_image'
+      "class": "tweet_image"
     }
   }),
   twitter.humanDate(),
