@@ -20,8 +20,11 @@ var oauth = {
 
 var twitter = twtcst(words, oauth);
 
+var validate = twitter.validate();
+var beautify = twitter.beautify();
+
 // twitter stream api
-twitter.filter(function(error, tweet) {
+twitter.filter(validate, beautify, function(error, tweet) {
   console.log(tweet);
 });
 ```
@@ -34,7 +37,7 @@ npm install twtcst
 
 ## API
 
-`twtcst` has three parameters. The first is `words` you want to search, the second is your `oauth` tokens, and the third (optional) is `options` to define some filters, counters and views.
+`twtcst` has three parameters. The first is `words` you want to search, the second is your `oauth` tokens, and the third (optional) is `options`.
 
 ```js
 var twitter = twtcst(words, oauth, options);
@@ -42,10 +45,10 @@ var twitter = twtcst(words, oauth, options);
 
 The `twitter` object has two methods: `search` and `filter`.
 
-**search** implement [Twitter Search API](http://dev.twitter.com/docs/api/1.1/get/search/tweets). It takes a callback as an argument. The callback will be caused when all tweets are found. The first argument of callback is error (if it has occured) and the second is array of tweets.
+**search** implement [Twitter Search API](http://dev.twitter.com/docs/api/1.1/get/search/tweets). It takes a three arguments: validate function, beautify function and a callback. Functions `validate` and `beautify` will be described below. The callback will be caused when all tweets are found. The first argument of callback is error (if it has occured) and the second is array of tweets.
 
 ```js
-twitter.search(function(error, tweets) {
+twitter.search(validate, beautify, function(error, tweets) {
   if (tweets) {
     tweets.forEach(function(tweet) {
       message(tweet);
@@ -54,30 +57,17 @@ twitter.search(function(error, tweets) {
 });
 ```
 
-**filter** implement [Twitter Streaming API](http://dev.twitter.com/docs/api/1.1/post/statuses/filter). It cause callback and passed new tweet to it every time new tweet appears in Twitter Stream. The filter pass to callback two options: `error` and `tweet`.
+**filter** implement [Twitter Streaming API](http://dev.twitter.com/docs/api/1.1/post/statuses/filter). It has three arguments: `validate`, `beautify` and callback. Filter cause callback and passed new tweet to it every time new tweet appears in Twitter Stream. The filter pass to callback two options: `error` and `tweet`.
 
 ```js
-twitter.filter(function(error, tweet) {
+twitter.filter(validate, beautify, function(error, tweet) {
   if (tweet) {
     message(tweet);
   }
 });
 ```
 
-**Format of tweets** is similar in both cases:
-
-```js
-{
-  id: "Tweet id"
-  link: "Link to user page on Twitter"
-  avatar: "Link to user profile image"
-  login: "User login (@username without @)"
-  name: "User name or login"
-  text: "Improved text of the tweet"
-  date: "YYYY-MM-DD HH:MM"
-  iso: "Date in ISO"
-}
-```
+**Format of tweets** depends on the `beautify` function.
 
 ### Words
 
@@ -113,54 +103,6 @@ All options are optional.
 "version": "1.1"
 ```
 
-**lang** is `array` of languages. If the language of tweet is not in the array, the tweet won’t be displayed.
-
-```js
-"lang": ["en", "ru"]
-```
-
-**spam** is `array` of strings. Tweets contain one of the strings won’t be displayed.
-
-```js
-"spam": [
-  "text/javascript",
-  "jquery"
-]
-```
-
-**mute** is `array` of usernames. Tweets writen by people specified in this array won’t be displayed.
-
-```js
-"mute": [
-  "simonenko",
-  "isquariel"
-]
-```
-
-**retweets** is `boolean`. If it is `false` retweets won’t be displayed. The variable is `false` by default.
-
-```js
-"retweets": false
-```
-
-**mentions** work as **retweets**. If it is `false` mentions won’t be displayed.
-
-```js
-"mentions": false
-```
-
-**userpics** is `boolean`. If it is `true` tweet posted by users with default avatar won’t be displayed.
-
-```js
-"userpics": true
-```
-
-**hashtags** is `number` defining max quantity of hashtags in tweets. Tweets contains more hashtags than specified won’t be displayed.
-
-```js
-"hashtags": 5
-```
-
 **count** is boolean. If it is true filter will be send count of all tweets with every tweet else it won’t.
 
 ```js
@@ -173,14 +115,94 @@ All options are optional.
 "storage": "count.txt"
 ```
 
-**media** specify settings for images in tweets. You can specify width and height of images and class of links images wrapped in.
+### Validate
+
+**validate** is a function to filter your tweets. Pass it an array of functions you want to filter your tweets.
 
 ```js
-"media": {
-  "width": 500,
-  "height": 500,
-  "class": "tweet_image"
-}
+var validate = twitter.validate([
+  twitter.allowLangs(['en', 'ru']),
+  twitter.blockUsers(['simonenko', 'isquariel']),
+  twitter.blockWords(['test', 'word', 'array', '#php']),
+  twitter.noRetweets(),
+  twitter.noMentions(),
+  twitter.noDefaults(),
+  twitter.maxHashlen(5),
+  yourOwnFilter
+]);
+
+If tweet doesn’t match any of checks you define, it won’t pass on.
+Each of these functions takes a tweet as an argument and return true if tweet is valid and false otherwise. E.g.:
+
+```js
+noRetweets = function() {
+  return function(tweet) {
+    if (tweet.text.indexOf('RT ') === 0) {
+      return false;
+    }
+    return true;
+  };
+};
+```
+
+All tweets is in format served by Twitter: [description](https://dev.twitter.com/docs/platform-objects/tweets)
+
+There are some built-in functions to filter:
+
+**blockUsers** filter tweets posted by users you pass to the function. To don’t show tweets from users @simonenko and @isquariel just exec
+
+```js
+validate = twitter.validate([
+  twitter.blockUsers(['simonenko', 'isquariel'])
+]);
+```
+
+**blockWords** filter tweets that contains specified words. To hide tweets that contains word ruby and hashtag #php write
+
+```js
+validate = twitter.validate([
+  twitter.blockWords(['#php', 'ruby'])
+]);
+```
+
+**maxHashlen** do not skip tweets that contains more hashtags than you specify.
+
+```js
+validate = twitter.validate([
+  twitter.maxHashlen(5)
+]);
+```
+
+**allowLangs** show tweets written in specified languages only. E.g.:
+
+```js
+validate = twitter.validate([
+  twitter.allowLangs(['en', 'ru'])
+]);
+```
+
+**noRetweets** do not skip old-format retweets (RT @username ...). To use it exec:
+
+```js
+validate = twitter.validate([
+  twitter.noRetweets()
+]);
+```
+
+**noMentions** do not skip tweets start with @username and .@username. To use it exec:
+
+```js
+validate = twitter.validate([
+  twitter.noMentions()
+]);
+```
+
+**noDefaults** do not skip tweets posted by users with default userpic. To use it exec:
+
+```js
+validate = twitter.validate([
+  twitter.noDefaults()
+]);
 ```
 
 ## Development
