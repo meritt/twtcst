@@ -5,10 +5,10 @@ params = (options) ->
     include_entities: true
     track: options.words.join ','
 
-module.exports = (options, beautify, validate, counter) ->
+module.exports = (options, counter) ->
   params = params options
 
-  return (fn) ->
+  (validate, beautify, fn) ->
     request = require('request').post params, (error, response, body) ->
       fn error, false if error
 
@@ -19,7 +19,7 @@ module.exports = (options, beautify, validate, counter) ->
         tweet = false
 
       if validate tweet
-        tweet = beautify tweet, false
+        tweet = beautify tweet, false if beautify
         tweet.counter = counter.inc() if counter
 
         fn null, tweet

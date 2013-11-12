@@ -4,20 +4,9 @@ v = require 'valentine'
 
 filter   = require './filter'
 search   = require './search'
-beautify = require './beautify'
-validate = require './validate'
 
 defaults =
   version: 1.1           # Twitter API version
-
-  lang: ['en', 'ru']     # list of languages
-  mute: []               # list of blocked twitter accounts
-  spam: []               # list of blocked keywords in text
-
-  retweets: false        # show old retweets
-  mentions: false        # show mentions
-  userpics: true         # hide twitter accounts with default userpic
-  hashtags: 5            # maximum hashtags in text
 
   count: false           # count tweets
   storage: false         # file where save the counter
@@ -46,10 +35,6 @@ parse = (words, oauth, params) ->
   options = v.extend {}, defaults
   options = v.extend options, params
 
-  if options.hashtags
-    options.hashtags = parseInt options.hashtags, 10
-    options.hashtags = false unless options.hashtags > -1
-
   options.words = words
   options.oauth = oauth
 
@@ -63,8 +48,20 @@ module.exports = (words, oauth = {}, options = {}) ->
   else
     counter = null
 
-  _beautify = beautify options
-  _validate = validate options
+  validate:   require './validate'
+  blockUsers: require './validate_block_users'
+  blockWords: require './validate_block_words'
+  allowLangs: require './validate_allow_langs'
+  noRetweets: require './validate_no_retweets'
+  noMentions: require './validate_no_mentions'
+  noDefaults: require './validate_no_defaults'
+  maxHashlen: require './validate_max_hashlen'
 
-  filter: filter options, _beautify, _validate, counter
-  search: search options, _beautify, _validate, counter
+  beautify:       require './beautify'
+  autoLink:       require './beautify_auto_link'
+  expandEntities: require './beautify_expand_entities'
+  humanDate:      require './beautify_human_date'
+  twtcstFormat:   require './beautify_twtcst_format'
+
+  filter: filter options, counter
+  search: search options, counter

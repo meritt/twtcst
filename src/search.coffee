@@ -10,11 +10,11 @@ params = (options) ->
   oauth: options.oauth
   json: true
 
-module.exports = (options, beautify, validate, counter) ->
+module.exports = (options, counter) ->
   count = 10
   params = params options
 
-  return (fn) ->
+  (validate, beautify, fn) ->
     require('request').get params, (error, response, body) ->
       if error
         return fn error, false
@@ -33,7 +33,8 @@ module.exports = (options, beautify, validate, counter) ->
         break unless tweet
 
         if validate tweet
-          results.push beautify tweet, false
+          tweet = beautify tweet if beautify
+          results.push tweet
 
       if counter
         n = counter.set results.length
