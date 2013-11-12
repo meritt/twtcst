@@ -130,6 +130,7 @@ var validate = twitter.validate([
   twitter.maxHashlen(5),
   yourOwnFilter
 ]);
+```
 
 If tweet doesn’t match any of checks you define, it won’t pass on.
 Each of these functions takes a tweet as an argument and return true if tweet is valid and false otherwise. E.g.:
