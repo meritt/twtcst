@@ -206,6 +206,94 @@ validate = twitter.validate([
 ]);
 ```
 
+### Beautify
+
+**beautify** is a function to format tweets you get. Pass it an array of functions you want to use for format
+
+```js
+beautify = twitter.beautify([
+  twitter.autoLink(false),
+  twitter.expandEntities({
+    "urls": true,
+    "media": {
+      "width": 500,
+      "height": 500,
+      "class": 'tweet_image'
+    }
+  }),
+  twitter.humanDate(),
+  twitter.twtcstFormat(),
+  yourAwesomeFunction
+]);
+```
+
+The first function takes as an argument tweet in tweet format subscribed above. The next functions takes as an argument result of previous function. So you have to write functions in the order you want to work on tweets. There are some built-in functions for beautify.
+
+**autoLink** modify `tweet.text`. The function automatically wrap links, hashtags and usernames with links. To wrap, use:
+
+```js
+beautify = twitter.beautify([
+  twitter.autoLinks()
+]);
+```
+
+to wrap links only (without usernames and hashtags) use
+
+```js
+beautify = twitter.beautify([
+  twitter.autoLinks(false)
+]);
+```
+
+**expandEntities** modify `tweet.text`. It will expand links and images
+
+```js
+beautify = twitter.beautify([
+  twitter.expandEntities({
+    "urls": true,
+    "media": {
+      "width": 500,
+      "height": 500,
+      "class": 'tweet_image'
+    }
+  })
+]);
+```
+
+set `"urls": true` to expand urls if you want to expand them and set `"media": { ... }` to expand images. Images will be wrapped in an `a` tag, class of this tag will be class you specified in `media.class`. If you specified `media.width` image width will be set to minimal value of media.width and width of the image. `media.height` property works analogously.
+
+**humanDate** adds two fields to tweet: tweet.human_date and tweet.iso_date. Human date is in format *YYYY-MM-DD HH:MM* and ISO date is Date.toISOString()
+
+```js
+beautify = twitter.beautify([
+  twitter.humanDate()
+]);
+```
+
+**twtcstFormat** is a function return tweet converted to format we find convenient for later use
+
+```js
+beautify = twitter.beautify([
+  twitter.twtcstFormat()
+]);
+```
+
+The output format is:
+
+```json
+{
+  id: "Tweet id"
+  link: "Link to user page on Twitter"
+  avatar: "Link to user profile image"
+  login: "User login (@username without @)"
+  name: "User name or login"
+  text: "Improved text of the tweet"
+  date: "YYYY-MM-DD HH:MM"
+  iso: "Date in ISO"
+}
+
+```
+
 ## Development
 
 To get the source form Github execute
