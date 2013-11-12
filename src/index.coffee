@@ -11,11 +11,6 @@ defaults =
   count: false           # count tweets
   storage: false         # file where save the counter
 
-  media:                 # settings for images
-    width: 500           # max width of images in tweets
-    height: 500          # max height of images in tweets
-    class: 'tweet_image' # class will be added to links around images
-
 oauth_error = """You must specify oauth tokens, for example:
 oauth = {
   consumer_key: ''
@@ -55,7 +50,7 @@ module.exports = (words, oauth = {}, options = {}) ->
   noRetweets: require './validate_no_retweets'
   noMentions: require './validate_no_mentions'
   noDefaults: require './validate_no_defaults'
-  maxHashlen: require './validate_max_hashlen'
+  maxHashtags: require './validate_max_hashtags'
 
   beautify:       require './beautify'
   autoLink:       require './beautify_auto_link'

@@ -14,7 +14,7 @@ validate = twitter.validate([
   twitter.noRetweets(),
   twitter.noMentions(),
   twitter.noDefaults(),
-  twitter.maxHashlen(5)
+  twitter.maxHashtags(5)
 ]),
 
 beautify = twitter.beautify([

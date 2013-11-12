@@ -127,7 +127,7 @@ var validate = twitter.validate([
   twitter.noRetweets(),
   twitter.noMentions(),
   twitter.noDefaults(),
-  twitter.maxHashlen(5),
+  twitter.maxHashtags(5),
   yourOwnFilter
 ]);
 ```
@@ -166,11 +166,11 @@ validate = twitter.validate([
 ]);
 ```
 
-**maxHashlen** do not skip tweets that contains more hashtags than you specify.
+**maxHashtags** do not skip tweets that contains more hashtags than you specify.
 
 ```js
 validate = twitter.validate([
-  twitter.maxHashlen(5)
+  twitter.maxHashtags(5)
 ]);
 ```
 
