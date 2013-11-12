@@ -34,10 +34,10 @@ clients = [],
 
 io = require('socket.io').listen(8080);
 
-function message(data) {
-  for (var i = 0, client = clients[i]; i < clients.length; i++) {
-    if (client.disconnected === false) {
-      client.emit('tweet', JSON.stringify(data));
+function message (data) {
+  for (var i = 0; i < clients.length; i++) {
+    if (clients[i].disconnected === false) {
+      clients[i].emit('tweet', JSON.stringify(data));
     }
   }
 }

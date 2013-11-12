@@ -4,12 +4,7 @@
   var interval = 3000,
       max = 20;
 
-  if (!window.io) {
-    return;
-  }
-
   var messages = [],
-      keys = [],
       socket = io.connect('http://127.0.0.1:8080'),
       storage = window.sessionStorage,
       container = document.querySelector('#tweets'),
@@ -34,7 +29,6 @@
   function update () {
     if (messages.length > 0) {
       var tweet = messages.pop();
-      delete keys[tweet.id];
       tweet = parse(tweet);
       container.insertBefore(tweet, container.firstElementChild);
       while (container.children.length > max) {
@@ -52,18 +46,14 @@
   socket.on('connect', function () {
     indicator.classList.add('online');
     socket.emit('search');
-    socket.on('tweet', function (result) {
-      result = JSON.parse(result);
-      if (keys[result.id] === true) {
-        return;
-      }
-      keys[result.id] = true;
-      messages.push(result);
-    });
-    socket.on('disconnect', function () {
-      indicator.classList.remove('online');
-    });
   }); 
+  socket.on('tweet', function (result) {
+    result = JSON.parse(result);
+    messages.push(result);
+  });
+  socket.on('disconnect', function () {
+    indicator.classList.remove('online');
+  });
 
   setInterval(update, interval);
 
