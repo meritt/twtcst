@@ -20,8 +20,11 @@ var oauth = {
 
 var twitter = twtcst(words, oauth);
 
+var validate = twitter.validate();
+var beautify = twitter.beautify();
+
 // twitter stream api
-twitter.filter(function(error, tweet) {
+twitter.filter(validate, beautify, function(error, tweet) {
   console.log(tweet);
 });
 ```
@@ -34,18 +37,18 @@ npm install twtcst
 
 ## API
 
-`twtcst` has three parameters. The first is `words` you want to search, the second is your `oauth` tokens, and the third (optional) is `options` to define some filters, counters and views.
+`twtcst` has two parameters. The first is `words` you want to search and the second is your `oauth` tokens.
 
 ```js
-var twitter = twtcst(words, oauth, options);
+var twitter = twtcst(words, oauth);
 ```
 
 The `twitter` object has two methods: `search` and `filter`.
 
-**search** implement [Twitter Search API](http://dev.twitter.com/docs/api/1.1/get/search/tweets). It takes a callback as an argument. The callback will be caused when all tweets are found. The first argument of callback is error (if it has occured) and the second is array of tweets.
+**search** implement [Twitter Search API](http://dev.twitter.com/docs/api/1.1/get/search/tweets). It takes a three arguments: validate function, beautify function and a callback. Functions `validate` and `beautify` will be described below. The callback will be caused when all tweets are found. The first argument of callback is error (if it has occured) and the second is array of tweets.
 
 ```js
-twitter.search(function(error, tweets) {
+twitter.search(validate, beautify, function(error, tweets) {
   if (tweets) {
     tweets.forEach(function(tweet) {
       message(tweet);
@@ -54,30 +57,17 @@ twitter.search(function(error, tweets) {
 });
 ```
 
-**filter** implement [Twitter Streaming API](http://dev.twitter.com/docs/api/1.1/post/statuses/filter). It cause callback and passed new tweet to it every time new tweet appears in Twitter Stream. The filter pass to callback two options: `error` and `tweet`.
+**filter** implement [Twitter Streaming API](http://dev.twitter.com/docs/api/1.1/post/statuses/filter). It has three arguments: `validate`, `beautify` and callback. Filter cause callback and passed new tweet to it every time new tweet appears in Twitter Stream. The filter pass to callback two options: `error` and `tweet`.
 
 ```js
-twitter.filter(function(error, tweet) {
+twitter.filter(validate, beautify, function(error, tweet) {
   if (tweet) {
     message(tweet);
   }
 });
 ```
 
-**Format of tweets** is similar in both cases:
-
-```js
-{
-  id: "Tweet id"
-  link: "Link to user page on Twitter"
-  avatar: "Link to user profile image"
-  login: "User login (@username without @)"
-  name: "User name or login"
-  text: "Improved text of the tweet"
-  date: "YYYY-MM-DD HH:MM"
-  iso: "Date in ISO"
-}
-```
+**Format of tweets** depends on the `beautify` function.
 
 ### Words
 
@@ -103,84 +93,183 @@ var oauth = {
 };
 ```
 
-### Options
+### Validate
 
-All options are optional.
-
-**version** is `string` of Twitter Stream API version (1.1 by default)
+**validate** is a function to filter your tweets. Pass it an array of functions you want to filter your tweets.
 
 ```js
-"version": "1.1"
+var validate = twitter.validate([
+  twitter.allowLangs(['en', 'ru']),
+  twitter.blockUsers(['simonenko', 'isquariel']),
+  twitter.blockWords(['test', 'word', 'array', '#php']),
+  twitter.noRetweets(),
+  twitter.noMentions(),
+  twitter.noDefaults(),
+  twitter.maxHashtags(5),
+  yourOwnFilter
+]);
 ```
 
-**lang** is `array` of languages. If the language of tweet is not in the array, the tweet won’t be displayed.
+If tweet doesn’t match any of checks you define, it won’t pass on.
+Each of these functions takes a tweet as an argument and return true if tweet is valid and false otherwise. E.g.:
 
 ```js
-"lang": ["en", "ru"]
+noRetweets = function() {
+  return function(tweet) {
+    if (tweet.text.indexOf('RT ') === 0) {
+      return false;
+    }
+    return true;
+  };
+};
 ```
 
-**spam** is `array` of strings. Tweets contain one of the strings won’t be displayed.
+All tweets is in format served by Twitter: [description](https://dev.twitter.com/docs/platform-objects/tweets)
+
+There are some built-in functions to filter:
+
+**blockUsers** filter tweets posted by users you pass to the function. To don’t show tweets from users @simonenko and @isquariel just exec
 
 ```js
-"spam": [
-  "text/javascript",
-  "jquery"
-]
+validate = twitter.validate([
+  twitter.blockUsers(['simonenko', 'isquariel'])
+]);
 ```
 
-**mute** is `array` of usernames. Tweets writen by people specified in this array won’t be displayed.
+**blockWords** filter tweets that contains specified words. To hide tweets that contains word ruby and hashtag #php write
 
 ```js
-"mute": [
-  "simonenko",
-  "isquariel"
-]
+validate = twitter.validate([
+  twitter.blockWords(['#php', 'ruby'])
+]);
 ```
 
-**retweets** is `boolean`. If it is `false` retweets won’t be displayed. The variable is `false` by default.
+**maxHashtags** do not skip tweets that contains more hashtags than you specify.
 
 ```js
-"retweets": false
+validate = twitter.validate([
+  twitter.maxHashtags(5)
+]);
 ```
 
-**mentions** work as **retweets**. If it is `false` mentions won’t be displayed.
+**allowLangs** show tweets written in specified languages only. E.g.:
 
 ```js
-"mentions": false
+validate = twitter.validate([
+  twitter.allowLangs(['en', 'ru'])
+]);
 ```
 
-**userpics** is `boolean`. If it is `true` tweet posted by users with default avatar won’t be displayed.
+**noRetweets** do not skip old-format retweets (RT @username ...). To use it exec:
 
 ```js
-"userpics": true
+validate = twitter.validate([
+  twitter.noRetweets()
+]);
 ```
 
-**hashtags** is `number` defining max quantity of hashtags in tweets. Tweets contains more hashtags than specified won’t be displayed.
+**noMentions** do not skip tweets start with @username and .@username. To use it exec:
 
 ```js
-"hashtags": 5
+validate = twitter.validate([
+  twitter.noMentions()
+]);
 ```
 
-**count** is boolean. If it is true filter will be send count of all tweets with every tweet else it won’t.
+**noDefaults** do not skip tweets posted by users with default userpic. To use it exec:
 
 ```js
-"count": true
+validate = twitter.validate([
+  twitter.noDefaults()
+]);
 ```
 
-**storage** specify file where save tweet quantity filtered by your request. It will be used only if **count** is true.
+### Beautify
+
+**beautify** is a function to format tweets you get. Pass it an array of functions you want to use for format
 
 ```js
-"storage": "count.txt"
+beautify = twitter.beautify([
+  twitter.autoLink(false),
+  twitter.expandEntities({
+    "urls": true,
+    "media": {
+      "width": 500,
+      "height": 500,
+      "class": 'tweet_image'
+    }
+  }),
+  twitter.humanDate(),
+  twitter.twtcstFormat(),
+  yourAwesomeFunction
+]);
 ```
 
-**media** specify settings for images in tweets. You can specify width and height of images and class of links images wrapped in.
+The first function takes as an argument tweet in tweet format subscribed above. The next functions takes as an argument result of previous function. So you have to write functions in the order you want to work on tweets. There are some built-in functions for beautify.
+
+**autoLink** modify `tweet.text`. The function automatically wrap links, hashtags and usernames with links. To wrap, use:
 
 ```js
-"media": {
-  "width": 500,
-  "height": 500,
-  "class": "tweet_image"
+beautify = twitter.beautify([
+  twitter.autoLinks()
+]);
+```
+
+to wrap links only (without usernames and hashtags) use
+
+```js
+beautify = twitter.beautify([
+  twitter.autoLinks(false)
+]);
+```
+
+**expandEntities** modify `tweet.text`. It will expand links and images
+
+```js
+beautify = twitter.beautify([
+  twitter.expandEntities({
+    "urls": true,
+    "media": {
+      "width": 500,
+      "height": 500,
+      "class": 'tweet_image'
+    }
+  })
+]);
+```
+
+set `"urls": true` to expand urls if you want to expand them and set `"media": { ... }` to expand images. Images will be wrapped in an `a` tag, class of this tag will be class you specified in `media.class`. If you specified `media.width` image width will be set to minimal value of media.width and width of the image. `media.height` property works analogously.
+
+**humanDate** adds two fields to tweet: `tweet.human_date` and `tweet.iso_date`. Human date is in format *YYYY-MM-DD HH:MM* and ISO date is Date.toISOString()
+
+```js
+beautify = twitter.beautify([
+  twitter.humanDate()
+]);
+```
+
+**twtcstFormat** is a function return tweet converted to format we find convenient for later use
+
+```js
+beautify = twitter.beautify([
+  twitter.twtcstFormat()
+]);
+```
+
+The output format is:
+
+```json
+{
+  "id": "Tweet id"
+  "link": "Link to user page on Twitter"
+  "avatar": "Link to user profile image"
+  "login": "User login (@username without @)"
+  "name": "User name or login"
+  "text": "Improved text of the tweet"
+  "date": "YYYY-MM-DD HH:MM"
+  "iso": "Date in ISO"
 }
+
 ```
 
 ## Development

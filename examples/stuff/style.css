@@ -25,10 +25,6 @@ h1 {
 .twtcst_indicator.online {
   background-color: #71c18b;
 }
-.tweet_count {
-  color: #999;
-  font-size: 0.75em;
-}
 #tweets {
   margin: 0;
   padding: 0;
