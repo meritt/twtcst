@@ -34,23 +34,26 @@
 
 <p><a href="http://simonenko.su/53381781858/pulse-of-web-developments">Article about this in Russian in my blog.</a></p>
 
-<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">twtcst</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'twtcst'</span><span class="p">);</span>
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">twtcst</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"twtcst"</span><span class="p">);</span>
 
 <span class="c1">// array of words you want to track</span>
-<span class="kd">var</span> <span class="nx">words</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'javascript'</span><span class="p">,</span> <span class="s1">'coffeescript'</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">words</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"javascript"</span><span class="p">,</span> <span class="s2">"coffeescript"</span><span class="p">];</span>
 
 <span class="c1">// object contains your oauth tokens</span>
 <span class="kd">var</span> <span class="nx">oauth</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'consumer_key'</span><span class="o">:</span> <span class="s1">''</span><span class="p">,</span>
-  <span class="s1">'consumer_secret'</span><span class="o">:</span> <span class="s1">''</span><span class="p">,</span>
-  <span class="s1">'token'</span><span class="o">:</span> <span class="s1">''</span><span class="p">,</span>
-  <span class="s1">'token_secret'</span><span class="o">:</span> <span class="s1">''</span>
+  <span class="s2">"consumer_key"</span><span class="o">:</span> <span class="s2">""</span><span class="p">,</span>
+  <span class="s2">"consumer_secret"</span><span class="o">:</span> <span class="s2">""</span><span class="p">,</span>
+  <span class="s2">"token"</span><span class="o">:</span> <span class="s2">""</span><span class="p">,</span>
+  <span class="s2">"token_secret"</span><span class="o">:</span> <span class="s2">""</span>
 <span class="p">};</span>
 
 <span class="kd">var</span> <span class="nx">twitter</span> <span class="o">=</span> <span class="nx">twtcst</span><span class="p">(</span><span class="nx">words</span><span class="p">,</span> <span class="nx">oauth</span><span class="p">);</span>
 
+<span class="kd">var</span> <span class="nx">validate</span> <span class="o">=</span> <span class="nx">twitter</span><span class="p">.</span><span class="nx">validate</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">beautify</span> <span class="o">=</span> <span class="nx">twitter</span><span class="p">.</span><span class="nx">beautify</span><span class="p">();</span>
+
 <span class="c1">// twitter stream api</span>
-<span class="nx">twitter</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">tweet</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">twitter</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">validate</span><span class="p">,</span> <span class="nx">beautify</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">tweet</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">tweet</span><span class="p">);</span>
 <span class="p">});</span>
 </pre></div>
@@ -64,16 +67,16 @@
 <h2>
 <a name="api" class="anchor" href="#api"><span class="octicon octicon-link"></span></a>API</h2>
 
-<p><code>twtcst</code> has three parameters. The first is <code>words</code> you want to search, the second is your <code>oauth</code> tokens, and the third (optional) is <code>options</code> to define some filters, counters and views.</p>
+<p><code>twtcst</code> has two parameters. The first is <code>words</code> you want to search and the second is your <code>oauth</code> tokens.</p>
 
-<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">twitter</span> <span class="o">=</span> <span class="nx">twtcst</span><span class="p">(</span><span class="nx">words</span><span class="p">,</span> <span class="nx">oauth</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">twitter</span> <span class="o">=</span> <span class="nx">twtcst</span><span class="p">(</span><span class="nx">words</span><span class="p">,</span> <span class="nx">oauth</span><span class="p">);</span>
 </pre></div>
 
 <p>The <code>twitter</code> object has two methods: <code>search</code> and <code>filter</code>.</p>
 
-<p><strong>search</strong> implement <a href="http://dev.twitter.com/docs/api/1.1/get/search/tweets">Twitter Search API</a>. It takes a callback as an argument. The callback will be caused when all tweets are found. The first argument of callback is error (if it has occured) and the second is array of tweets.</p>
+<p><strong>search</strong> implement <a href="http://dev.twitter.com/docs/api/1.1/get/search/tweets">Twitter Search API</a>. It takes a three arguments: validate function, beautify function and a callback. Functions <code>validate</code> and <code>beautify</code> will be described below. The callback will be caused when all tweets are found. The first argument of callback is error (if it has occured) and the second is array of tweets.</p>
 
-<div class="highlight highlight-js"><pre><span class="nx">twitter</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">tweets</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight highlight-js"><pre><span class="nx">twitter</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="nx">validate</span><span class="p">,</span> <span class="nx">beautify</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">tweets</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">tweets</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">tweets</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">tweet</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">message</span><span class="p">(</span><span class="nx">tweet</span><span class="p">);</span>
@@ -82,28 +85,16 @@
 <span class="p">});</span>
 </pre></div>
 
-<p><strong>filter</strong> implement <a href="http://dev.twitter.com/docs/api/1.1/post/statuses/filter">Twitter Streaming API</a>. It cause callback and passed new tweet to it every time new tweet appears in Twitter Stream. The filter pass to callback two options: <code>error</code> and <code>tweet</code>.</p>
+<p><strong>filter</strong> implement <a href="http://dev.twitter.com/docs/api/1.1/post/statuses/filter">Twitter Streaming API</a>. It has three arguments: <code>validate</code>, <code>beautify</code> and callback. Filter cause callback and passed new tweet to it every time new tweet appears in Twitter Stream. The filter pass to callback two options: <code>error</code> and <code>tweet</code>.</p>
 
-<div class="highlight highlight-js"><pre><span class="nx">twitter</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">tweet</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight highlight-js"><pre><span class="nx">twitter</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">validate</span><span class="p">,</span> <span class="nx">beautify</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">tweet</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">tweet</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">message</span><span class="p">(</span><span class="nx">tweet</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">});</span>
 </pre></div>
 
-<p><strong>Format of tweets</strong> is similar in both cases:</p>
-
-<div class="highlight highlight-js"><pre><span class="p">{</span>
-  <span class="nx">id</span><span class="o">:</span> <span class="s2">"Tweet id"</span>
-  <span class="nx">link</span><span class="o">:</span> <span class="s2">"Link to user page on Twitter"</span>
-  <span class="nx">avatar</span><span class="o">:</span> <span class="s2">"Link to user profile image"</span>
-  <span class="nx">login</span><span class="o">:</span> <span class="s2">"User login (@username without @)"</span>
-  <span class="nx">name</span><span class="o">:</span> <span class="s2">"User name or login"</span>
-  <span class="nx">text</span><span class="o">:</span> <span class="s2">"Improved text of the tweet"</span>
-  <span class="nx">date</span><span class="o">:</span> <span class="s2">"YYYY-MM-DD HH:MM"</span>
-  <span class="nx">iso</span><span class="o">:</span> <span class="s2">"Date in ISO"</span>
-<span class="p">}</span>
-</pre></div>
+<p><strong>Format of tweets</strong> depends on the <code>beautify</code> function.</p>
 
 <h3>
 <a name="words" class="anchor" href="#words"><span class="octicon octicon-link"></span></a>Words</h3>
@@ -122,81 +113,176 @@
 <p><code>oauth</code> is an object in format required by Twitter API. You can get tokens by <a href="http://dev.twitter.com/apps/new">creating new app</a> or <a href="http://dev.twitter.com/apps">from existing app</a>.</p>
 
 <div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">oauth</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">'consumer_key'</span><span class="o">:</span> <span class="s1">''</span><span class="p">,</span>
-  <span class="s1">'consumer_secret'</span><span class="o">:</span> <span class="s1">''</span><span class="p">,</span>
-  <span class="s1">'token'</span><span class="o">:</span> <span class="s1">''</span><span class="p">,</span>
-  <span class="s1">'token_secret'</span><span class="o">:</span> <span class="s1">''</span>
+  <span class="s2">"consumer_key"</span><span class="o">:</span> <span class="s2">""</span><span class="p">,</span>
+  <span class="s2">"consumer_secret"</span><span class="o">:</span> <span class="s2">""</span><span class="p">,</span>
+  <span class="s2">"token"</span><span class="o">:</span> <span class="s2">""</span><span class="p">,</span>
+  <span class="s2">"token_secret"</span><span class="o">:</span> <span class="s2">""</span>
 <span class="p">};</span>
 </pre></div>
 
 <h3>
-<a name="options" class="anchor" href="#options"><span class="octicon octicon-link"></span></a>Options</h3>
+<a name="validate" class="anchor" href="#validate"><span class="octicon octicon-link"></span></a>Validate</h3>
 
-<p>All options are optional.</p>
+<p><strong>validate</strong> is a function to filter your tweets. Pass it an array of functions you want to filter your tweets.</p>
 
-<p><strong>version</strong> is <code>string</code> of Twitter Stream API version (1.1 by default)</p>
-
-<div class="highlight highlight-js"><pre><span class="s2">"version"</span><span class="o">:</span> <span class="s2">"1.1"</span>
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">validate</span> <span class="o">=</span> <span class="nx">twitter</span><span class="p">.</span><span class="nx">validate</span><span class="p">([</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">allowLangs</span><span class="p">([</span><span class="s1">'en'</span><span class="p">,</span> <span class="s1">'ru'</span><span class="p">]),</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">blockUsers</span><span class="p">([</span><span class="s1">'simonenko'</span><span class="p">,</span> <span class="s1">'isquariel'</span><span class="p">]),</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">blockWords</span><span class="p">([</span><span class="s1">'test'</span><span class="p">,</span> <span class="s1">'word'</span><span class="p">,</span> <span class="s1">'array'</span><span class="p">,</span> <span class="s1">'#php'</span><span class="p">]),</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">noRetweets</span><span class="p">(),</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">noMentions</span><span class="p">(),</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">noDefaults</span><span class="p">(),</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">maxHashtags</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+  <span class="nx">yourOwnFilter</span>
+<span class="p">]);</span>
 </pre></div>
 
-<p><strong>lang</strong> is <code>array</code> of languages. If the language of tweet is not in the array, the tweet won’t be displayed.</p>
+<p>If tweet doesn’t match any of checks you define, it won’t pass on.
+Each of these functions takes a tweet as an argument and return true if tweet is valid and false otherwise. E.g.:</p>
 
-<div class="highlight highlight-js"><pre><span class="s2">"lang"</span><span class="o">:</span> <span class="p">[</span><span class="s2">"en"</span><span class="p">,</span> <span class="s2">"ru"</span><span class="p">]</span>
+<div class="highlight highlight-js"><pre><span class="nx">noRetweets</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">tweet</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">tweet</span><span class="p">.</span><span class="nx">text</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">'RT '</span><span class="p">)</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">};</span>
+<span class="p">};</span>
 </pre></div>
 
-<p><strong>spam</strong> is <code>array</code> of strings. Tweets contain one of the strings won’t be displayed.</p>
+<p>All tweets is in format served by Twitter: <a href="https://dev.twitter.com/docs/platform-objects/tweets">description</a></p>
 
-<div class="highlight highlight-js"><pre><span class="s2">"spam"</span><span class="o">:</span> <span class="p">[</span>
-  <span class="s1">'text/javascript'</span><span class="p">,</span>
-  <span class="s1">'jquery'</span>
-<span class="p">]</span>
+<p>There are some built-in functions to filter:</p>
+
+<p><strong>blockUsers</strong> filter tweets posted by users you pass to the function. To don’t show tweets from users <a href="https://github.com/simonenko" class="user-mention">@simonenko</a> and <a href="https://github.com/isquariel" class="user-mention">@isquariel</a> just exec</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">validate</span> <span class="o">=</span> <span class="nx">twitter</span><span class="p">.</span><span class="nx">validate</span><span class="p">([</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">blockUsers</span><span class="p">([</span><span class="s1">'simonenko'</span><span class="p">,</span> <span class="s1">'isquariel'</span><span class="p">])</span>
+<span class="p">]);</span>
 </pre></div>
 
-<p><strong>mute</strong> is <code>array</code> of usernames. Tweets writen by people specified in this array won’t be displayed.</p>
+<p><strong>blockWords</strong> filter tweets that contains specified words. To hide tweets that contains word ruby and hashtag #php write</p>
 
-<div class="highlight highlight-js"><pre><span class="s2">"mute"</span><span class="o">:</span> <span class="p">[</span>
-  <span class="s2">"simonenko"</span><span class="p">,</span>
-  <span class="s2">"isquariel"</span>
-<span class="p">]</span>
+<div class="highlight highlight-js"><pre><span class="nx">validate</span> <span class="o">=</span> <span class="nx">twitter</span><span class="p">.</span><span class="nx">validate</span><span class="p">([</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">blockWords</span><span class="p">([</span><span class="s1">'#php'</span><span class="p">,</span> <span class="s1">'ruby'</span><span class="p">])</span>
+<span class="p">]);</span>
 </pre></div>
 
-<p><strong>retweets</strong> is <code>boolean</code>. If it is <code>false</code> retweets won’t be displayed. The variable is <code>false</code> by default.</p>
+<p><strong>maxHashtags</strong> do not skip tweets that contains more hashtags than you specify.</p>
 
-<div class="highlight highlight-js"><pre><span class="s2">"retweets"</span><span class="o">:</span> <span class="kc">false</span>
+<div class="highlight highlight-js"><pre><span class="nx">validate</span> <span class="o">=</span> <span class="nx">twitter</span><span class="p">.</span><span class="nx">validate</span><span class="p">([</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">maxHashtags</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="p">]);</span>
 </pre></div>
 
-<p><strong>mentions</strong> work as <strong>retweets</strong>. If it is <code>false</code> mentions won’t be displayed.</p>
+<p><strong>allowLangs</strong> show tweets written in specified languages only. E.g.:</p>
 
-<div class="highlight highlight-js"><pre><span class="s2">"mentions"</span><span class="o">:</span> <span class="kc">false</span>
+<div class="highlight highlight-js"><pre><span class="nx">validate</span> <span class="o">=</span> <span class="nx">twitter</span><span class="p">.</span><span class="nx">validate</span><span class="p">([</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">allowLangs</span><span class="p">([</span><span class="s1">'en'</span><span class="p">,</span> <span class="s1">'ru'</span><span class="p">])</span>
+<span class="p">]);</span>
 </pre></div>
 
-<p><strong>userpics</strong> is <code>boolean</code>. If it is <code>true</code> tweet posted by users with default avatar won’t be displayed.</p>
+<p><strong>noRetweets</strong> do not skip old-format retweets (RT <a href="https://github.com/username" class="user-mention">@username</a> ...). To use it exec:</p>
 
-<div class="highlight highlight-js"><pre><span class="s2">"userpics"</span><span class="o">:</span> <span class="kc">true</span>
+<div class="highlight highlight-js"><pre><span class="nx">validate</span> <span class="o">=</span> <span class="nx">twitter</span><span class="p">.</span><span class="nx">validate</span><span class="p">([</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">noRetweets</span><span class="p">()</span>
+<span class="p">]);</span>
 </pre></div>
 
-<p><strong>hashtags</strong> is <code>number</code> defining max quantity of hashtags in tweets. Tweets contains more hashtags than specified won’t be displayed.</p>
+<p><strong>noMentions</strong> do not skip tweets start with <a href="https://github.com/username" class="user-mention">@username</a> and <a href="mailto:.@username">.@username</a>. To use it exec:</p>
 
-<div class="highlight highlight-js"><pre><span class="s2">"hashtags"</span><span class="o">:</span> <span class="mi">5</span>
+<div class="highlight highlight-js"><pre><span class="nx">validate</span> <span class="o">=</span> <span class="nx">twitter</span><span class="p">.</span><span class="nx">validate</span><span class="p">([</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">noMentions</span><span class="p">()</span>
+<span class="p">]);</span>
 </pre></div>
 
-<p><strong>count</strong> is boolean. If it is true filter will be send count of all tweets with every tweet else it won’t.</p>
+<p><strong>noDefaults</strong> do not skip tweets posted by users with default userpic. To use it exec:</p>
 
-<div class="highlight highlight-js"><pre><span class="s2">"count"</span><span class="o">:</span> <span class="kc">true</span>
+<div class="highlight highlight-js"><pre><span class="nx">validate</span> <span class="o">=</span> <span class="nx">twitter</span><span class="p">.</span><span class="nx">validate</span><span class="p">([</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">noDefaults</span><span class="p">()</span>
+<span class="p">]);</span>
 </pre></div>
 
-<p><strong>storage</strong> specify file where save tweet quantity filtered by your request. It will be used only if <strong>count</strong> is true.</p>
+<h3>
+<a name="beautify" class="anchor" href="#beautify"><span class="octicon octicon-link"></span></a>Beautify</h3>
 
-<div class="highlight highlight-js"><pre><span class="s2">"storage"</span><span class="o">:</span> <span class="s2">"count.txt"</span>
+<p><strong>beautify</strong> is a function to format tweets you get. Pass it an array of functions you want to use for format</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">beautify</span> <span class="o">=</span> <span class="nx">twitter</span><span class="p">.</span><span class="nx">beautify</span><span class="p">([</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">autoLink</span><span class="p">(</span><span class="kc">false</span><span class="p">),</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">expandEntities</span><span class="p">({</span>
+    <span class="s2">"urls"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"media"</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">"width"</span><span class="o">:</span> <span class="mi">500</span><span class="p">,</span>
+      <span class="s2">"height"</span><span class="o">:</span> <span class="mi">500</span><span class="p">,</span>
+      <span class="s2">"class"</span><span class="o">:</span> <span class="s1">'tweet_image'</span>
+    <span class="p">}</span>
+  <span class="p">}),</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">humanDate</span><span class="p">(),</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">twtcstFormat</span><span class="p">(),</span>
+  <span class="nx">yourAwesomeFunction</span>
+<span class="p">]);</span>
 </pre></div>
 
-<p><strong>media</strong> specify settings for images in tweets. You can specify width and height of images and class of links images wrapped in.</p>
+<p>The first function takes as an argument tweet in tweet format subscribed above. The next functions takes as an argument result of previous function. So you have to write functions in the order you want to work on tweets. There are some built-in functions for beautify.</p>
 
-<div class="highlight highlight-js"><pre><span class="s2">"media"</span><span class="o">:</span> <span class="p">{</span>
-  <span class="s2">"width"</span><span class="o">:</span> <span class="mi">500</span><span class="p">,</span>
-  <span class="s2">"height"</span><span class="o">:</span> <span class="mi">500</span><span class="p">,</span>
-  <span class="s2">"class"</span><span class="o">:</span> <span class="s2">"tweet_image"</span>
+<p><strong>autoLink</strong> modify <code>tweet.text</code>. The function automatically wrap links, hashtags and usernames with links. To wrap, use:</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">beautify</span> <span class="o">=</span> <span class="nx">twitter</span><span class="p">.</span><span class="nx">beautify</span><span class="p">([</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">autoLinks</span><span class="p">()</span>
+<span class="p">]);</span>
+</pre></div>
+
+<p>to wrap links only (without usernames and hashtags) use</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">beautify</span> <span class="o">=</span> <span class="nx">twitter</span><span class="p">.</span><span class="nx">beautify</span><span class="p">([</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">autoLinks</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+<span class="p">]);</span>
+</pre></div>
+
+<p><strong>expandEntities</strong> modify <code>tweet.text</code>. It will expand links and images</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">beautify</span> <span class="o">=</span> <span class="nx">twitter</span><span class="p">.</span><span class="nx">beautify</span><span class="p">([</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">expandEntities</span><span class="p">({</span>
+    <span class="s2">"urls"</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"media"</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">"width"</span><span class="o">:</span> <span class="mi">500</span><span class="p">,</span>
+      <span class="s2">"height"</span><span class="o">:</span> <span class="mi">500</span><span class="p">,</span>
+      <span class="s2">"class"</span><span class="o">:</span> <span class="s1">'tweet_image'</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">]);</span>
+</pre></div>
+
+<p>set <code>"urls": true</code> to expand urls if you want to expand them and set <code>"media": { ... }</code> to expand images. Images will be wrapped in an <code>a</code> tag, class of this tag will be class you specified in <code>media.class</code>. If you specified <code>media.width</code> image width will be set to minimal value of media.width and width of the image. <code>media.height</code> property works analogously.</p>
+
+<p><strong>humanDate</strong> adds two fields to tweet: <code>tweet.human_date</code> and <code>tweet.iso_date</code>. Human date is in format <em>YYYY-MM-DD HH:MM</em> and ISO date is Date.toISOString()</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">beautify</span> <span class="o">=</span> <span class="nx">twitter</span><span class="p">.</span><span class="nx">beautify</span><span class="p">([</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">humanDate</span><span class="p">()</span>
+<span class="p">]);</span>
+</pre></div>
+
+<p><strong>twtcstFormat</strong> is a function return tweet converted to format we find convenient for later use</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">beautify</span> <span class="o">=</span> <span class="nx">twitter</span><span class="p">.</span><span class="nx">beautify</span><span class="p">([</span>
+  <span class="nx">twitter</span><span class="p">.</span><span class="nx">twtcstFormat</span><span class="p">()</span>
+<span class="p">]);</span>
+</pre></div>
+
+<p>The output format is:</p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"id"</span><span class="p">:</span> <span class="s2">"Tweet id"</span>
+  <span class="s2">"link"</span><span class="p">:</span> <span class="s2">"Link to user page on Twitter"</span>
+  <span class="s2">"avatar"</span><span class="p">:</span> <span class="s2">"Link to user profile image"</span>
+  <span class="s2">"login"</span><span class="p">:</span> <span class="s2">"User login (@username without @)"</span>
+  <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"User name or login"</span>
+  <span class="s2">"text"</span><span class="p">:</span> <span class="s2">"Improved text of the tweet"</span>
+  <span class="s2">"date"</span><span class="p">:</span> <span class="s2">"YYYY-MM-DD HH:MM"</span>
+  <span class="s2">"iso"</span><span class="p">:</span> <span class="s2">"Date in ISO"</span>
 <span class="p">}</span>
+
 </pre></div>
 
 <h2>
@@ -229,7 +315,7 @@ cake build
 
 <p>Finally, you can view the working html page with stream of tweets. Just execute</p>
 
-<div class="highlight highlight-bash"><pre>node examples/socket-server.js
+<div class="highlight highlight-bash"><pre>node examples/socket.js
 </pre></div>
 
 <p>and open the examples/index.html in your browser.</p>
