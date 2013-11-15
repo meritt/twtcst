@@ -8,17 +8,19 @@ params = (options) ->
 request = require 'request'
 
 makeRequest = (validate, beautify, fn) ->
-  req = request.post params, (error, response, body) ->
+  stream = request.post params, (error, response, body) ->
     fn error, false if error
 
-  req.on 'end', () ->
-    req = makeRequest validate, beautify, fn
+  stream.on 'end', ->
+    makeRequest validate, beautify, fn
+    return
 
-  req.on 'data', (buffer) ->
+  stream.on 'data', (buffer) ->
     try
       tweet = JSON.parse buffer.toString()
-      if tweet.disconnect
-        req = makeRequest validate, beautify, fn
+      if tweet and tweet.disconnect
+        makeRequest validate, beautify, fn
+        return
     catch error
       tweet = false
 
@@ -26,12 +28,12 @@ makeRequest = (validate, beautify, fn) ->
       tweet = beautify tweet, false if beautify
 
       fn null, tweet
-
-  req
-
+      return
+  return
 
 module.exports = (options) ->
   params = params options
 
   (validate, beautify, fn) ->
-    req = makeRequest validate, beautify, fn
+    makeRequest validate, beautify, fn
+    return
