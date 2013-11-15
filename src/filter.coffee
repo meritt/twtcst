@@ -19,9 +19,11 @@ makeRequest = (validate, beautify, fn) ->
     try
       tweet = JSON.parse buffer.toString()
       if tweet and tweet.disconnect
+        console.log "Disconnected from twitter stream: #{disconnect.reason}"
         makeRequest validate, beautify, fn
         return
     catch error
+      console.log "Error from twitter stream try/catch #{error.message}"
       tweet = false
 
     if tweet and validate tweet
