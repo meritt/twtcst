@@ -18,6 +18,7 @@ makeRequest = (validate, beautify, fn) ->
     try
       tweet = JSON.parse buffer.toString()
       if tweet.disconnect
+        console.log "Disconnected from Twitter: #{disconnect.reason}"
         req = makeRequest validate, beautify, fn
     catch error
       tweet = false
