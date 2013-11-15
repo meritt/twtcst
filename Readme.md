@@ -59,6 +59,9 @@ twitter.search(validate, beautify, function(error, tweets) {
 
 **filter** implement [Twitter Streaming API](http://dev.twitter.com/docs/api/1.1/post/statuses/filter). It has three arguments: `validate`, `beautify` and callback. Filter cause callback and passed new tweet to it every time new tweet appears in Twitter Stream. The filter pass to callback two options: `error` and `tweet`.
 
+> **Warning**: you can open only one stream per account! If you open the second
+> stream, the first stream disconnects.
+
 ```js
 twitter.filter(validate, beautify, function(error, tweet) {
   if (tweet) {
