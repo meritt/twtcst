@@ -8,6 +8,7 @@ params = (options) ->
 request = require 'request'
 
 makeRequest = (validate, beautify, fn) ->
+  console.log 'Open new request to Twitter Stream API'
   stream = request.post params, (error, response, body) ->
     fn error, false if error
 
