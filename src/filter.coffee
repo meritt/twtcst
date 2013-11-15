@@ -12,6 +12,7 @@ makeRequest = (validate, beautify, fn) ->
     fn error, false if error
 
   stream.on 'end', ->
+    console.log "Connecting to twitter stream again"
     makeRequest validate, beautify, fn
     return
 
@@ -20,7 +21,7 @@ makeRequest = (validate, beautify, fn) ->
       tweet = JSON.parse buffer.toString()
       if tweet and tweet.disconnect
         console.log "Disconnected from twitter stream: #{disconnect.reason}"
-        makeRequest validate, beautify, fn
+        stream.end()
         return
     catch error
       console.log "Error from twitter stream try/catch #{error.message}"
