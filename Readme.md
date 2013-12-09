@@ -325,3 +325,5 @@ and open the examples/index.html in your browser.
 ## License
 
 The MIT License, see the included `License.md` file.
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/serenity/twtcst/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
