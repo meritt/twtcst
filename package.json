@@ -1,7 +1,7 @@
 {
     "name": "twtcst"
-  , "version": "1.0.0"
-  , "main": "./lib/index.js"
+  , "version": "1.1.0"
+  , "main": "./lib/index"
   , "description": "Twitter Broadcast"
   , "keywords": ["twitter", "stream", "websocket", "socket.io", "conference", "broadcast"]
   , "author": "Alexey Simonenko <alexey@simonenko.su>"
@@ -17,15 +17,15 @@
       , "url": "https://github.com/serenity/twtcst.git"
     }
   , "engines": {
-      "node": "0.10.x"
+      "node": ">=0.10.x"
     }
   , "dependencies": {
-      "twitter-text": "1.6.x"
-    , "request": "2.27.x"
-    , "valentine": "1.8.x"
+      "twitter-text": "1.7.x"
+    , "request": "2.29.x"
   }
   , "devDependencies": {
       "coffee-script": "1.6.x"
     , "socket.io": "0.9.x"
+    , "glob": "3.2.x"
   }
 }

@@ -1,25 +1,36 @@
 fs     = require 'fs'
 path   = require 'path'
 coffee = require 'coffee-script'
+glob   = require 'glob'
 
-compile = (file) ->
-  input = path.normalize "./src/#{file}"
+src = path.normalize "#{__dirname}/src"
+dst = path.normalize "#{__dirname}/lib"
 
-  fs.readFile input, 'utf-8', (error, code) ->
-    return console.log error if error
+compile = (soure, output) ->
+  fs.readFile soure, 'utf-8', (error, code) ->
+    if error
+      console.log error
+      return
 
     code   = coffee.compile code, bare: true
-    output = path.normalize "./lib/#{file.replace /\.coffee$/, ".js"}"
+    output = output.replace '.coffee', '.js'
 
     fs.writeFile output, code, (error) ->
-      return console.log error if error
+      if error
+        console.log error
+        return
+
+      output = output.replace(dst, '').replace('/', '')
       console.log "#{output} has been compiled"
 
 task 'build', 'Build lib from src', ->
-  fs.readdir './src', (error, files) ->
-    return console.log error if error
+  fs.mkdirSync "#{dst}/validate" unless fs.existsSync "#{dst}/validate"
+  fs.mkdirSync "#{dst}/beautify" unless fs.existsSync "#{dst}/beautify"
 
-    fs.mkdirSync './lib' if not fs.existsSync './lib'
+  glob '**/*.coffee', cwd: src, (error, files) ->
+    if error
+      console.log error
+      return
 
-    for file in files when /\.coffee$/.test file
-      compile file
+    for file in files
+      compile "#{src}/#{file}", "#{dst}/#{file}"

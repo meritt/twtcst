@@ -27,7 +27,7 @@ getImage = (entity, standard) ->
   inline
 
 module.exports = (list) ->
-  (tweet) ->
+  return (tweet) ->
     text = tweet.text
     inline = false
 
