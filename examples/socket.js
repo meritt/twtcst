@@ -1,10 +1,9 @@
-var twtcst = require('./../lib/index'),
+var twtcst = require('./../lib/index');
+var oauth  = require('./stuff/oauth');
 
-oauth = require('./stuff/oauth'),
+var twitter = twtcst(['#js', '#nodejs'], oauth);
 
-twitter = twtcst(['#js', '#nodejs'], oauth),
-
-validate = twitter.validate([
+var validate = twitter.validate([
   twitter.allowLangs(['en', 'ru']),
   twitter.blockUsers(['simonenko', 'isquariel']),
   twitter.blockWords(['test', 'word', 'array', '#php']),
@@ -12,36 +11,46 @@ validate = twitter.validate([
   twitter.noMentions(),
   twitter.noDefaults(),
   twitter.maxHashtags(5)
-]),
+]);
 
-beautify = twitter.beautify([
+var beautify = twitter.beautify([
   twitter.autoLink(false),
   twitter.expandEntities({
     "urls": true,
     "media": {
       "width": 500,
       "height": 500,
-      "class": "tweet_image"
+      "class": 'tweet_image'
     }
   }),
   twitter.humanDate(),
   twitter.twtcstFormat()
-]),
+]);
 
-clients = [],
+var clients = {};
 
-io = require('socket.io').listen(8080);
+var io = require('socket.io').listen(8080);
 
 function message(data) {
-  for (var i = 0, length = clients.length; i < length; i++) {
-    if (clients[i].disconnected === false) {
-      clients[i].send(JSON.stringify(data));
+  var client, key;
+
+  for (key in clients) {
+    client = clients[key];
+
+    if (client && client.disconnected === false) {
+      try {
+        client.send(JSON.stringify(data));
+      } catch (e) {}
     }
   }
 }
 
 io.sockets.on('connection', function(socket) {
-  clients.push(socket);
+  clients[socket.id] = socket;
+
+  socket.on('disconnect', function() {
+    delete clients[socket.id];
+  });
 
   socket.on('search', function() {
     twitter.search(validate, beautify, function(error, tweets) {
@@ -54,10 +63,12 @@ io.sockets.on('connection', function(socket) {
   });
 });
 
+console.log('Twitter stream fetching...');
 twitter.filter(validate, beautify, function(error, tweet) {
   if (error) {
     console.log(error);
   }
+
   if (tweet) {
     message(tweet);
   }

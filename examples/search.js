@@ -1,10 +1,9 @@
-var twtcst = require('./../lib/index'),
+var twtcst = require('./../lib/index');
+var oauth  = require('./stuff/oauth');
 
-oauth = require('./stuff/oauth'),
+var twitter = twtcst(['#js', '#nodejs'], oauth);
 
-twitter = twtcst(['#js', '#nodejs'], oauth),
-
-validate = twitter.validate([
+var validate = twitter.validate([
   twitter.allowLangs(['en', 'ru']),
   twitter.blockUsers(['simonenko', 'isquariel']),
   twitter.blockWords(['test', 'word', 'array', '#php']),
@@ -12,26 +11,37 @@ validate = twitter.validate([
   twitter.noMentions(),
   twitter.noDefaults(),
   twitter.maxHashtags(5)
-]),
+]);
 
-beautify = twitter.beautify([
+var beautify = twitter.beautify([
   twitter.autoLink(false),
   twitter.expandEntities({
     "urls": true,
     "media": {
       "width": 500,
       "height": 500,
-      "class": "tweet_image"
+      "class": 'tweet_image'
     }
   }),
   twitter.humanDate(),
   twitter.twtcstFormat()
 ]);
 
+console.log('Fetching tweets via twitter search API...');
 twitter.search(validate, beautify, function(error, tweets) {
+  if (error) {
+    console.log(error);
+    return;
+  }
+
   console.log(tweets);
 
+  console.log('Twitter stream fetching...');
   twitter.filter(validate, beautify, function(error, tweet) {
+    if (error) {
+      console.log(error);
+    }
+
     if (tweet) {
       console.log(tweet);
     }
