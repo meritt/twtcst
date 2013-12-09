@@ -1,7 +1,7 @@
 pad = (n) -> if n < 10 then "0#{n}" else n
 
-module.exports = () ->
-  (tweet) ->
+module.exports = ->
+  return (tweet) ->
     created = new Date tweet.created_at
 
     date = [

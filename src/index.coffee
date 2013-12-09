@@ -1,7 +1,5 @@
-v = require 'valentine'
-
-filter   = require './filter'
-search   = require './search'
+filter = require './filter'
+search = require './search'
 
 oauth_error = """You must specify oauth tokens, for example:
 oauth = {
@@ -23,23 +21,22 @@ parse = (words, oauth) ->
   oauth: oauth
 
 module.exports = (words, oauth = {}, options = {}) ->
-
   options = parse words, oauth
 
   validate:   require './validate'
-  blockUsers: require './validate_block_users'
-  blockWords: require './validate_block_words'
-  allowLangs: require './validate_allow_langs'
-  noRetweets: require './validate_no_retweets'
-  noMentions: require './validate_no_mentions'
-  noDefaults: require './validate_no_defaults'
-  maxHashtags: require './validate_max_hashtags'
+  blockUsers: require './validate/block_users'
+  blockWords: require './validate/block_words'
+  allowLangs: require './validate/allow_langs'
+  noRetweets: require './validate/no_retweets'
+  noMentions: require './validate/no_mentions'
+  noDefaults: require './validate/no_defaults'
+  maxHashtags: require './validate/max_hashtags'
 
   beautify:       require './beautify'
-  autoLink:       require './beautify_auto_link'
-  expandEntities: require './beautify_expand_entities'
-  humanDate:      require './beautify_human_date'
-  twtcstFormat:   require './beautify_twtcst_format'
+  autoLink:       require './beautify/auto_link'
+  expandEntities: require './beautify/expand_entities'
+  humanDate:      require './beautify/human_date'
+  twtcstFormat:   require './beautify/twtcst_format'
 
   filter: filter options
   search: search options
