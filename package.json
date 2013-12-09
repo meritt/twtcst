@@ -17,11 +17,11 @@
       , "url": "https://github.com/serenity/twtcst.git"
     }
   , "engines": {
-      "node": "0.10.x"
+      "node": ">=0.10.x"
     }
   , "dependencies": {
-      "twitter-text": "1.6.x"
-    , "request": "2.27.x"
+      "twitter-text": "1.7.x"
+    , "request": "2.29.x"
     , "valentine": "1.8.x"
   }
   , "devDependencies": {
