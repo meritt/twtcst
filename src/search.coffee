@@ -14,7 +14,7 @@ module.exports = (options) ->
   count = 10
   params = params options
 
-  (validate, beautify, fn) ->
+  return (validate, beautify, fn) ->
     require('request').get params, (error, response, body) ->
       if error
         return fn error, false

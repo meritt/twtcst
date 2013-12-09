@@ -6,6 +6,14 @@ It’s a nodejs module provide you easy interface to get the stream of tweets.
 
 [Article about this in Russian in my blog.](http://simonenko.su/53381781858/pulse-of-web-developments)
 
+## Installation
+
+```
+$ npm install twtcst
+```
+
+## Examples
+
 ```js
 var twtcst = require("twtcst");
 
@@ -29,12 +37,6 @@ var beautify = twitter.beautify();
 twitter.filter(validate, beautify, function(error, tweet) {
   console.log(tweet);
 });
-```
-
-## Install with NPM
-
-```bash
-npm install twtcst
 ```
 
 ## API
@@ -281,41 +283,39 @@ The output format is:
 
 To get the source form Github execute
 
-```bash
-git clone git@github.com:serenity/twtcst.git
-cd twtcst
+```
+$ git clone git@github.com:serenity/twtcst.git
+$ cd twtcst
 
-npm link
-cake build
+$ npm link
+$ cake build
 ```
 
 Then you should specify your access token in `examples/staff/oauth.js`. Now you have a working example.
 
 To try `twtcst.filter` execute
 
-```bash
-node examples/filter.js
+```
+$ node examples/filter.js
 ```
 
 The script puts new tweet to console.
 
 To try `twtcst.search` execute
 
-```bash
-node examples/search.js
+```
+$ node examples/search.js
 ```
 
 First the scripts puts an array of tweets get from search to console and then it will output tweets from stream.
 
 Finally, you can view the working html page with stream of tweets. Just execute
 
-```bash
-node examples/socket.js
+```
+$ node examples/socket.js
 ```
 
 and open the examples/index.html in your browser.
-
----
 
 ## Authors
 

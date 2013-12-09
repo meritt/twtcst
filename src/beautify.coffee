@@ -1,4 +1,4 @@
 module.exports = (fns) ->
-  (tweet) ->
+  return (tweet) ->
     tweet = fn tweet for fn in fns
     tweet
