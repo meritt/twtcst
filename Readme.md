@@ -268,13 +268,13 @@ The output format is:
 
 ```json
 {
-  "id":     "Tweet id"
-  "link":   "Link to user page on Twitter"
-  "avatar": "Link to user profile image"
-  "login":  "User login (@username without @)"
-  "name":   "User name or login"
-  "text":   "Improved text of the tweet"
-  "date":   "YYYY-MM-DD HH:MM"
+  "id":     "Tweet id",
+  "link":   "Link to user page on Twitter",
+  "avatar": "Link to user profile image",
+  "login":  "User login (@username without @)",
+  "name":   "User name or login",
+  "text":   "Improved text of the tweet",
+  "date":   "YYYY-MM-DD HH:MM",
   "iso":    "Date in ISO"
 }
 ```
