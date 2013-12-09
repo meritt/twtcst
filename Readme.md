@@ -55,7 +55,7 @@ The `twitter` object has two methods: `search` and `filter`.
 twitter.search(validate, beautify, function(error, tweets) {
   if (tweets) {
     tweets.forEach(function(tweet) {
-      message(tweet);
+      console.log(tweet);
     });
   }
 });
@@ -69,7 +69,7 @@ twitter.search(validate, beautify, function(error, tweets) {
 ```js
 twitter.filter(validate, beautify, function(error, tweet) {
   if (tweet) {
-    message(tweet);
+    console.log(tweet);
   }
 });
 ```
@@ -117,11 +117,10 @@ var validate = twitter.validate([
 ]);
 ```
 
-If tweet doesn’t match any of checks you define, it won’t pass on.
-Each of these functions takes a tweet as an argument and return true if tweet is valid and false otherwise. E.g.:
+If tweet doesn’t match any of checks you define, it won’t pass on. Each of these functions takes a tweet as an argument and return true if tweet is valid and false otherwise. E.g.:
 
 ```js
-noRetweets = function() {
+var noRetweets = function() {
   return function(tweet) {
     if (tweet.text.indexOf('RT ') === 0) {
       return false;
@@ -131,22 +130,22 @@ noRetweets = function() {
 };
 ```
 
-All tweets is in format served by Twitter: [description](https://dev.twitter.com/docs/platform-objects/tweets)
+All tweets is in format served by Twitter: [description](https://dev.twitter.com/docs/platform-objects/tweets).
 
-There are some built-in functions to filter:
+#### There are some built-in functions to filter
 
-**blockUsers** filter tweets posted by users you pass to the function. To don’t show tweets from users @simonenko and @isquariel just exec
+**blockUsers** filter tweets posted by users you pass to the function. To don’t show tweets from users @simonenko and @isquariel just exec:
 
 ```js
-validate = twitter.validate([
+var validate = twitter.validate([
   twitter.blockUsers(['simonenko', 'isquariel'])
 ]);
 ```
 
-**blockWords** filter tweets that contains specified words. To hide tweets that contains word ruby and hashtag #php write
+**blockWords** filter tweets that contains specified words. To hide tweets that contains word ruby and hashtag #php write.
 
 ```js
-validate = twitter.validate([
+var validate = twitter.validate([
   twitter.blockWords(['#php', 'ruby'])
 ]);
 ```
@@ -154,7 +153,7 @@ validate = twitter.validate([
 **maxHashtags** do not skip tweets that contains more hashtags than you specify.
 
 ```js
-validate = twitter.validate([
+var validate = twitter.validate([
   twitter.maxHashtags(5)
 ]);
 ```
@@ -162,15 +161,15 @@ validate = twitter.validate([
 **allowLangs** show tweets written in specified languages only. E.g.:
 
 ```js
-validate = twitter.validate([
+var validate = twitter.validate([
   twitter.allowLangs(['en', 'ru'])
 ]);
 ```
 
-**noRetweets** do not skip old-format retweets (RT @username ...). To use it exec:
+**noRetweets** do not skip old-format retweets (RT @username). To use it exec:
 
 ```js
-validate = twitter.validate([
+var validate = twitter.validate([
   twitter.noRetweets()
 ]);
 ```
@@ -178,7 +177,7 @@ validate = twitter.validate([
 **noMentions** do not skip tweets start with @username and .@username. To use it exec:
 
 ```js
-validate = twitter.validate([
+var validate = twitter.validate([
   twitter.noMentions()
 ]);
 ```
@@ -186,24 +185,24 @@ validate = twitter.validate([
 **noDefaults** do not skip tweets posted by users with default userpic. To use it exec:
 
 ```js
-validate = twitter.validate([
+var validate = twitter.validate([
   twitter.noDefaults()
 ]);
 ```
 
 ### Beautify
 
-**beautify** is a function to format tweets you get. Pass it an array of functions you want to use for format
+**beautify** is a function to format tweets you get. Pass it an array of functions you want to use for format.
 
 ```js
-beautify = twitter.beautify([
+var beautify = twitter.beautify([
   twitter.autoLink(false),
   twitter.expandEntities({
     "urls": true,
     "media": {
       "width": 500,
       "height": 500,
-      "class": 'tweet_image'
+      "class": "tweet_image"
     }
   }),
   twitter.humanDate(),
@@ -212,34 +211,36 @@ beautify = twitter.beautify([
 ]);
 ```
 
-The first function takes as an argument tweet in tweet format subscribed above. The next functions takes as an argument result of previous function. So you have to write functions in the order you want to work on tweets. There are some built-in functions for beautify.
+The first function takes as an argument tweet in tweet format subscribed above. The next functions takes as an argument result of previous function. So you have to write functions in the order you want to work on tweets.
+
+#### There are some built-in functions for beautify
 
 **autoLink** modify `tweet.text`. The function automatically wrap links, hashtags and usernames with links. To wrap, use:
 
 ```js
-beautify = twitter.beautify([
+var beautify = twitter.beautify([
   twitter.autoLinks()
 ]);
 ```
 
-to wrap links only (without usernames and hashtags) use
+to wrap links only (without usernames and hashtags) use:
 
 ```js
-beautify = twitter.beautify([
+var beautify = twitter.beautify([
   twitter.autoLinks(false)
 ]);
 ```
 
-**expandEntities** modify `tweet.text`. It will expand links and images
+**expandEntities** modify `tweet.text`. It will expand links and images.
 
 ```js
-beautify = twitter.beautify([
+var beautify = twitter.beautify([
   twitter.expandEntities({
     "urls": true,
     "media": {
       "width": 500,
       "height": 500,
-      "class": 'tweet_image'
+      "class": "tweet_image"
     }
   })
 ]);
@@ -247,18 +248,18 @@ beautify = twitter.beautify([
 
 set `"urls": true` to expand urls if you want to expand them and set `"media": { ... }` to expand images. Images will be wrapped in an `a` tag, class of this tag will be class you specified in `media.class`. If you specified `media.width` image width will be set to minimal value of media.width and width of the image. `media.height` property works analogously.
 
-**humanDate** adds two fields to tweet: `tweet.human_date` and `tweet.iso_date`. Human date is in format *YYYY-MM-DD HH:MM* and ISO date is Date.toISOString()
+**humanDate** adds two fields to tweet: `tweet.human_date` and `tweet.iso_date`. Human date is in format *YYYY-MM-DD HH:MM* and ISO date is Date.toISOString().
 
 ```js
-beautify = twitter.beautify([
+var beautify = twitter.beautify([
   twitter.humanDate()
 ]);
 ```
 
-**twtcstFormat** is a function return tweet converted to format we find convenient for later use
+**twtcstFormat** is a function return tweet converted to format we find convenient for later use:
 
 ```js
-beautify = twitter.beautify([
+var beautify = twitter.beautify([
   twitter.twtcstFormat()
 ]);
 ```
@@ -267,21 +268,20 @@ The output format is:
 
 ```json
 {
-  "id": "Tweet id"
-  "link": "Link to user page on Twitter"
+  "id":     "Tweet id"
+  "link":   "Link to user page on Twitter"
   "avatar": "Link to user profile image"
-  "login": "User login (@username without @)"
-  "name": "User name or login"
-  "text": "Improved text of the tweet"
-  "date": "YYYY-MM-DD HH:MM"
-  "iso": "Date in ISO"
+  "login":  "User login (@username without @)"
+  "name":   "User name or login"
+  "text":   "Improved text of the tweet"
+  "date":   "YYYY-MM-DD HH:MM"
+  "iso":    "Date in ISO"
 }
-
 ```
 
 ## Development
 
-To get the source form Github execute
+To get the source form Github execute:
 
 ```
 $ git clone git@github.com:serenity/twtcst.git
@@ -309,7 +309,7 @@ $ node examples/search.js
 
 First the scripts puts an array of tweets get from search to console and then it will output tweets from stream.
 
-Finally, you can view the working html page with stream of tweets. Just execute
+Finally, you can view the working html page with stream of tweets. Just execute:
 
 ```
 $ node examples/socket.js
