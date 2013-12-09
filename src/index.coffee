@@ -1,5 +1,3 @@
-"use strict"
-
 v = require 'valentine'
 
 filter   = require './filter'

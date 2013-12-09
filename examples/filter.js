@@ -1,5 +1,3 @@
-"use strict";
-
 var twtcst = require('./../lib/index'),
 
 oauth = require('./stuff/oauth'),
