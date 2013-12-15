@@ -1,6 +1,6 @@
 # Twitter Broadcast
 
-[![NPM version](https://badge.fury.io/js/twtcst.png)](http://badge.fury.io/js/twtcst) [![Dependency Status](https://david-dm.org/serenity/twtcst.png)](https://david-dm.org/serenity/twtcst)
+[![NPM version](https://badge.fury.io/js/twtcst.png)](http://badge.fury.io/js/twtcst) [![Dependency Status](https://david-dm.org/serenity/twtcst.png)](https://david-dm.org/serenity/twtcst) [![devDependency Status](https://david-dm.org/serenity/twtcst/dev-status.png)](https://david-dm.org/serenity/twtcst#info=devDependencies)
 
 It’s a nodejs module provide you easy interface to get the stream of tweets.
 
