@@ -1,7 +1,6 @@
 {
     "name": "twtcst"
   , "version": "1.1.1"
-  , "main": "./lib/index"
   , "description": "Twitter Broadcast"
   , "keywords": ["twitter", "stream", "websocket", "socket.io", "conference", "broadcast"]
   , "author": "Alexey Simonenko <alexey@simonenko.su>"
@@ -9,21 +8,23 @@
         "Alexey Simonenko <alexey@simonenko.su>"
       , "Sophia Ilinova <tavsophi@gmail.com>"
     ]
-  , "homepage": "http://simonenko.su/projects/twtcst/"
+  , "main": "./lib/index"
+  , "homepage": "http://simonenko.su/projects/twtcst"
   , "repository": {
         "type": "git"
       , "url": "https://github.com/serenity/twtcst.git"
     }
   , "engines": {
-      "node": ">=0.10.x"
+      "node": "~0.10"
     }
   , "dependencies": {
-      "twitter-text": "1.7.x"
-    , "request": "2.30.x"
-  }
+        "twitter-text": "1.7.x"
+      , "request": "2.x"
+    }
   , "devDependencies": {
-      "coffee-script": "1.6.x"
-    , "socket.io": "0.9.x"
-    , "glob": "3.2.x"
-  }
+        "coffee-script": "1.6.x"
+      , "socket.io": "0.9.x"
+      , "glob": "3.2.x"
+    }
+  , "license": "MIT"
 }
