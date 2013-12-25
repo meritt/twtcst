@@ -317,10 +317,10 @@ $ node examples/socket.js
 
 and open the examples/index.html in your browser.
 
-## Authors
+## Contributors
 
-* [Alexey Simonenko](//github.com/meritt), [alexey@simonenko.su](mailto:alexey@simonenko.su), [simonenko.su](http://simonenko.su)
-* [Sophia Ilinova](//github.com/isquariel), [tavsophi@gmail.com](mailto:tavsophi@gmail.com)
+* [Alexey Simonenko](http://github.com/meritt), [alexey@simonenko.su](mailto:alexey@simonenko.su), [simonenko.su](http://simonenko.su)
+* [Sophia Ilinova](http://github.com/isquariel), [tavsophi@gmail.com](mailto:tavsophi@gmail.com)
 
 ## License
 
