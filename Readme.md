@@ -288,7 +288,7 @@ $ git clone git@github.com:meritt/twtcst.git
 $ cd twtcst
 
 $ npm link
-$ cake build
+$ npm run build
 ```
 
 Then you should specify your access token in `examples/staff/oauth.js`. Now you have a working example.
