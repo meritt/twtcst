@@ -1,6 +1,6 @@
 # Twitter Broadcast
 
-[![NPM version](https://badge.fury.io/js/twtcst.png)](http://badge.fury.io/js/twtcst) [![Dependency Status](https://david-dm.org/serenity/twtcst.png)](https://david-dm.org/serenity/twtcst) [![devDependency Status](https://david-dm.org/serenity/twtcst/dev-status.png)](https://david-dm.org/serenity/twtcst#info=devDependencies)
+[![NPM version](https://badge.fury.io/js/twtcst.png)](http://badge.fury.io/js/twtcst) [![Dependency Status](https://david-dm.org/meritt/twtcst.png)](https://david-dm.org/meritt/twtcst) [![devDependency Status](https://david-dm.org/meritt/twtcst/dev-status.png)](https://david-dm.org/meritt/twtcst#info=devDependencies)
 
 It’s a nodejs module provide you easy interface to get the stream of tweets.
 
@@ -284,7 +284,7 @@ The output format is:
 To get the source form Github execute:
 
 ```
-$ git clone git@github.com:serenity/twtcst.git
+$ git clone git@github.com:meritt/twtcst.git
 $ cd twtcst
 
 $ npm link
@@ -326,4 +326,4 @@ and open the examples/index.html in your browser.
 
 The MIT License, see the included `License.md` file.
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/serenity/twtcst/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/meritt/twtcst/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
