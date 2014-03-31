@@ -1,6 +1,6 @@
 {
     "name": "twtcst"
-  , "version": "1.1.1"
+  , "version": "1.1.2"
   , "description": "Twitter Broadcast"
   , "keywords": ["twitter", "stream", "websocket", "socket.io", "conference", "broadcast"]
   , "author": "Alexey Simonenko <alexey@simonenko.su>"
