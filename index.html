@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Twitter Broadcast by serenity</title>
+    <title>Twitter Broadcast by meritt</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -20,17 +20,17 @@
         <p class="header">Node.js + Twitter Streaming API + Websockets = &lt;3</p>
 
         <ul>
-          <li class="download"><a class="buttons" href="https://github.com/serenity/twtcst/zipball/master">Download ZIP</a></li>
-          <li class="download"><a class="buttons" href="https://github.com/serenity/twtcst/tarball/master">Download TAR</a></li>
-          <li><a class="buttons github" href="https://github.com/serenity/twtcst">View On GitHub</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/meritt/twtcst/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/meritt/twtcst/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/meritt/twtcst">View On GitHub</a></li>
         </ul>
 
-        <p class="header">This project is maintained by <a class="header name" href="https://github.com/serenity">serenity</a></p>
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/meritt">meritt</a></p>
 
 
       </header>
       <section>
-        <p><a href="http://badge.fury.io/js/twtcst"><img src="https://badge.fury.io/js/twtcst.png" alt="NPM version"></a> <a href="https://david-dm.org/serenity/twtcst"><img src="https://david-dm.org/serenity/twtcst.png" alt="Dependency Status"></a> <a href="https://david-dm.org/serenity/twtcst#info=devDependencies"><img src="https://david-dm.org/serenity/twtcst/dev-status.png" alt="devDependency Status"></a></p>
+        <p><a href="http://badge.fury.io/js/twtcst"><img src="https://badge.fury.io/js/twtcst.png" alt="NPM version"></a> <a href="https://david-dm.org/meritt/twtcst"><img src="https://david-dm.org/meritt/twtcst.png" alt="Dependency Status"></a> <a href="https://david-dm.org/meritt/twtcst#info=devDependencies"><img src="https://david-dm.org/meritt/twtcst/dev-status.png" alt="devDependency Status"></a></p>
 
 <p>It’s a nodejs module provide you easy interface to get the stream of tweets.</p>
 
@@ -39,8 +39,8 @@
 <h2>
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
 
-<pre><code>$ npm install twtcst
-</code></pre>
+<div class="highlight highlight-bash"><pre><span class="nv">$ </span>npm install twtcst
+</pre></div>
 
 <h2>
 <a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h2>
@@ -192,14 +192,14 @@ stream, the first stream disconnects.</p>
 <span class="p">]);</span>
 </pre></div>
 
-<p><strong>noRetweets</strong> do not skip old-format retweets (RT <a href="https://github.com/username" class="user-mention">@username</a>). To use it exec:</p>
+<p><strong>noRetweets</strong> do not skip old-format retweets (RT @username). To use it exec:</p>
 
 <div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">validate</span> <span class="o">=</span> <span class="nx">twitter</span><span class="p">.</span><span class="nx">validate</span><span class="p">([</span>
   <span class="nx">twitter</span><span class="p">.</span><span class="nx">noRetweets</span><span class="p">()</span>
 <span class="p">]);</span>
 </pre></div>
 
-<p><strong>noMentions</strong> do not skip tweets start with <a href="https://github.com/username" class="user-mention">@username</a> and <a href="mailto:.@username">.@username</a>. To use it exec:</p>
+<p><strong>noMentions</strong> do not skip tweets start with @username and <a href="mailto:.@username">.@username</a>. To use it exec:</p>
 
 <div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">validate</span> <span class="o">=</span> <span class="nx">twitter</span><span class="p">.</span><span class="nx">validate</span><span class="p">([</span>
   <span class="nx">twitter</span><span class="p">.</span><span class="nx">noMentions</span><span class="p">()</span>
@@ -302,52 +302,52 @@ stream, the first stream disconnects.</p>
 
 <p>To get the source form Github execute:</p>
 
-<pre><code>$ git clone git@github.com:serenity/twtcst.git
-$ cd twtcst
+<div class="highlight highlight-bash"><pre><span class="nv">$ </span>git clone git@github.com:meritt/twtcst.git
+<span class="nv">$ </span><span class="nb">cd </span>twtcst
 
-$ npm link
-$ cake build
-</code></pre>
+<span class="nv">$ </span>npm link
+<span class="nv">$ </span>npm run build
+</pre></div>
 
 <p>Then you should specify your access token in <code>examples/staff/oauth.js</code>. Now you have a working example.</p>
 
 <p>To try <code>twtcst.filter</code> execute</p>
 
-<pre><code>$ node examples/filter.js
-</code></pre>
+<div class="highlight highlight-bash"><pre><span class="nv">$ </span>node examples/filter.js
+</pre></div>
 
 <p>The script puts new tweet to console.</p>
 
 <p>To try <code>twtcst.search</code> execute</p>
 
-<pre><code>$ node examples/search.js
-</code></pre>
+<div class="highlight highlight-bash"><pre><span class="nv">$ </span>node examples/search.js
+</pre></div>
 
 <p>First the scripts puts an array of tweets get from search to console and then it will output tweets from stream.</p>
 
 <p>Finally, you can view the working html page with stream of tweets. Just execute:</p>
 
-<pre><code>$ node examples/socket.js
-</code></pre>
+<div class="highlight highlight-bash"><pre><span class="nv">$ </span>node examples/socket.js
+</pre></div>
 
 <p>and open the examples/index.html in your browser.</p>
 
 <h2>
-<a name="authors" class="anchor" href="#authors"><span class="octicon octicon-link"></span></a>Authors</h2>
+<a name="contributors" class="anchor" href="#contributors"><span class="octicon octicon-link"></span></a>Contributors</h2>
 
 <ul>
 <li>
-<a href="//github.com/meritt">Alexey Simonenko</a>, <a href="mailto:alexey@simonenko.su">alexey@simonenko.su</a>, <a href="http://simonenko.su">simonenko.su</a>
+<a href="http://github.com/meritt">Alexey Simonenko</a>, <a href="mailto:alexey@simonenko.su">alexey@simonenko.su</a>, <a href="http://simonenko.su">simonenko.su</a>
 </li>
 <li>
-<a href="//github.com/isquariel">Sophia Ilinova</a>, <a href="mailto:tavsophi@gmail.com">tavsophi@gmail.com</a>
+<a href="http://github.com/isquariel">Sophia Ilinova</a>, <a href="mailto:tavsophi@gmail.com">tavsophi@gmail.com</a>
 </li>
 </ul><h2>
 <a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p>The MIT License, see the included <code>License.md</code> file.</p>
 
-<p><a href="https://bitdeli.com/free" title="Bitdeli Badge"><img src="https://d2weczhvl823v0.cloudfront.net/serenity/twtcst/trend.png" alt="Bitdeli Badge"></a></p>
+<p><a href="https://bitdeli.com/free" title="Bitdeli Badge"><img src="https://d2weczhvl823v0.cloudfront.net/meritt/twtcst/trend.png" alt="Bitdeli Badge"></a></p>
       </section>
       <footer>
         <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
