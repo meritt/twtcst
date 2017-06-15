@@ -320,8 +320,8 @@ and open the examples/index.html in your browser.
 
 ## Contributors
 
-* [Alexey Simonenko](http://github.com/meritt), [alexey@simonenko.su](mailto:alexey@simonenko.su), [simonenko.su](http://simonenko.su)
-* [Sophia Ilinova](http://github.com/isquariel), [tavsophi@gmail.com](mailto:tavsophi@gmail.com)
+* [Alexey Simonenko](https://github.com/meritt), [alexey@simonenko.su](mailto:alexey@simonenko.su), [simonenko.su](http://simonenko.su)
+* [Sophia Ilinova](https://github.com/isqua), [isqua@isqua.ru](mailto:isqua@isqua.ru)
 
 ## License
 
