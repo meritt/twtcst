@@ -1,5 +1,3 @@
-.jshintrc
-.coffeelintrc
+.eslintignore
+.eslintrc.json
 examples
-src
-Cakefile

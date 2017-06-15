@@ -1,63 +1,62 @@
-var twtcst = require('./../lib/index');
-var oauth  = require('./stuff/oauth');
+const twtcst = require('./../lib/index');
+const oauth  = require('./stuff/oauth');
 
-var twitter = twtcst(['#js', '#nodejs'], oauth);
+const twitter = twtcst(['js', 'nodejs'], oauth);
 
-var validate = twitter.validate([
+const validate = twitter.validate([
   twitter.allowLangs(['en', 'ru']),
   twitter.blockUsers(['simonenko', 'isquariel']),
   twitter.blockWords(['test', 'word', 'array', '#php']),
   twitter.noRetweets(),
   twitter.noMentions(),
   twitter.noDefaults(),
+  twitter.noQuoted(),
   twitter.maxHashtags(5)
 ]);
 
-var beautify = twitter.beautify([
+const beautify = twitter.beautify([
   twitter.autoLink(false),
   twitter.expandEntities({
-    "urls": true,
-    "media": {
-      "width": 500,
-      "height": 500,
-      "class": 'tweet_image'
+    'urls': true,
+    'media': {
+      'width': 500,
+      'height': 500,
+      'class': 'tweet_image'
     }
   }),
   twitter.humanDate(),
   twitter.twtcstFormat()
 ]);
 
-var clients = {};
+const clients = {};
 
-var io = require('socket.io').listen(8080);
+const io = require('socket.io')();
+io.listen(8080);
 
 function message(data) {
-  var client, key;
-
-  for (key in clients) {
-    client = clients[key];
+  for (let key in clients) {
+    let client = clients[key];
 
     if (client && client.disconnected === false) {
       try {
-        client.send(JSON.stringify(data));
-      } catch (e) {}
+        client.emit('message', JSON.stringify(data));
+      } catch (err) {}
     }
   }
 }
 
-io.sockets.on('connection', function(socket) {
+io.on('connection', function(socket) {
   clients[socket.id] = socket;
 
   socket.on('disconnect', function() {
+    // bad construct
     delete clients[socket.id];
   });
 
   socket.on('search', function() {
     twitter.search(validate, beautify, function(error, tweets) {
-      if (tweets) {
-        for (var i = 0, length = tweets.length; i < length; i++) {
-          message(tweets[i]);
-        }
+      if (tweets && tweets.length > 0) {
+        tweets.map((tweet) => message(tweet));
       }
     });
   });

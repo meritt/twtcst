@@ -1,6 +1,6 @@
 # Twitter Broadcast
 
-[![NPM version](https://badge.fury.io/js/twtcst.png)](http://badge.fury.io/js/twtcst) [![Dependency Status](https://david-dm.org/meritt/twtcst.png)](https://david-dm.org/meritt/twtcst) [![devDependency Status](https://david-dm.org/meritt/twtcst/dev-status.png)](https://david-dm.org/meritt/twtcst#info=devDependencies)
+[![NPM version](https://img.shields.io/npm/v/twtcst.svg)](https://www.npmjs.com/package/twtcst) [![Dependencies Status](https://david-dm.org/meritt/twtcst/status.svg?style=flat-square)](https://david-dm.org/meritt/twtcst) [![devDependencies Status](https://david-dm.org/meritt/twtcst/dev-status.svg?style=flat-square)](https://david-dm.org/meritt/twtcst?type=dev)
 
 It’s a nodejs module provide you easy interface to get the stream of tweets.
 
@@ -49,7 +49,7 @@ var twitter = twtcst(words, oauth);
 
 The `twitter` object has two methods: `search` and `filter`.
 
-**search** implement [Twitter Search API](http://dev.twitter.com/docs/api/1.1/get/search/tweets). It takes a three arguments: validate function, beautify function and a callback. Functions `validate` and `beautify` will be described below. The callback will be caused when all tweets are found. The first argument of callback is error (if it has occured) and the second is array of tweets.
+**search** implement [Twitter Search API](https://dev.twitter.com/rest/reference/get/search/tweets). It takes a three arguments: validate function, beautify function and a callback. Functions `validate` and `beautify` will be described below. The callback will be caused when all tweets are found. The first argument of callback is error (if it has occured) and the second is array of tweets.
 
 ```js
 twitter.search(validate, beautify, function(error, tweets) {
@@ -61,7 +61,7 @@ twitter.search(validate, beautify, function(error, tweets) {
 });
 ```
 
-**filter** implement [Twitter Streaming API](http://dev.twitter.com/docs/api/1.1/post/statuses/filter). It has three arguments: `validate`, `beautify` and callback. Filter cause callback and passed new tweet to it every time new tweet appears in Twitter Stream. The filter pass to callback two options: `error` and `tweet`.
+**filter** implement [Twitter Streaming API](https://dev.twitter.com/streaming/reference/post/statuses/filter). It has three arguments: `validate`, `beautify` and callback. Filter cause callback and passed new tweet to it every time new tweet appears in Twitter Stream. The filter pass to callback two options: `error` and `tweet`.
 
 > **Warning**: you can open only one stream per account! If you open the second
 > stream, the first stream disconnects.
@@ -89,7 +89,7 @@ var words = [
 
 ### OAuth tokens
 
-`oauth` is an object in format required by Twitter API. You can get tokens by [creating new app](http://dev.twitter.com/apps/new) or [from existing app](http://dev.twitter.com/apps).
+`oauth` is an object in format required by Twitter API. You can get tokens by [creating new app](https://apps.twitter.com/app/new) or [from existing app](https://apps.twitter.com).
 
 ```js
 var oauth = {
@@ -112,6 +112,7 @@ var validate = twitter.validate([
   twitter.noRetweets(),
   twitter.noMentions(),
   twitter.noDefaults(),
+  twitter.noQuoted(),
   twitter.maxHashtags(5),
   yourOwnFilter
 ]);
@@ -122,15 +123,16 @@ If tweet doesn’t match any of checks you define, it won’t pass on. Each of t
 ```js
 var noRetweets = function() {
   return function(tweet) {
-    if (tweet.text.indexOf('RT ') === 0) {
+    if (tweet.retweeted === true || tweet.text.indexOf('RT ') === 0) {
       return false;
     }
+
     return true;
   };
 };
 ```
 
-All tweets is in format served by Twitter: [description](https://dev.twitter.com/docs/platform-objects/tweets).
+All tweets is in format served by Twitter: [description](https://dev.twitter.com/overview/api/tweets).
 
 #### There are some built-in functions to filter
 
@@ -248,7 +250,7 @@ var beautify = twitter.beautify([
 
 set `"urls": true` to expand urls if you want to expand them and set `"media": { ... }` to expand images. Images will be wrapped in an `a` tag, class of this tag will be class you specified in `media.class`. If you specified `media.width` image width will be set to minimal value of media.width and width of the image. `media.height` property works analogously.
 
-**humanDate** adds two fields to tweet: `tweet.human_date` and `tweet.iso_date`. Human date is in format *YYYY-MM-DD HH:MM* and ISO date is Date.toISOString().
+**humanDate** adds two fields to tweet: `tweet.humanDate` and `tweet.isoDate`. Human date is in format *YYYY-MM-DD HH:MM* and ISO date is Date.toISOString().
 
 ```js
 var beautify = twitter.beautify([
@@ -287,8 +289,7 @@ To get the source form Github execute:
 $ git clone git@github.com:meritt/twtcst.git
 $ cd twtcst
 
-$ npm link
-$ npm run build
+$ npm install
 ```
 
 Then you should specify your access token in `examples/staff/oauth.js`. Now you have a working example.
@@ -296,7 +297,7 @@ Then you should specify your access token in `examples/staff/oauth.js`. Now you 
 To try `twtcst.filter` execute
 
 ```
-$ node examples/filter.js
+$ node ./examples/filter.js
 ```
 
 The script puts new tweet to console.
@@ -304,7 +305,7 @@ The script puts new tweet to console.
 To try `twtcst.search` execute
 
 ```
-$ node examples/search.js
+$ node ./examples/search.js
 ```
 
 First the scripts puts an array of tweets get from search to console and then it will output tweets from stream.
@@ -312,18 +313,16 @@ First the scripts puts an array of tweets get from search to console and then it
 Finally, you can view the working html page with stream of tweets. Just execute:
 
 ```
-$ node examples/socket.js
+$ node /examples/socket.js
 ```
 
 and open the examples/index.html in your browser.
 
 ## Contributors
 
-* [Alexey Simonenko](http://github.com/meritt), [alexey@simonenko.su](mailto:alexey@simonenko.su), [simonenko.su](http://simonenko.su)
-* [Sophia Ilinova](http://github.com/isquariel), [tavsophi@gmail.com](mailto:tavsophi@gmail.com)
+* [Alexey Simonenko](https://github.com/meritt), [alexey@simonenko.su](mailto:alexey@simonenko.su), [simonenko.su](http://simonenko.su)
+* [Sophia Ilinova](https://github.com/isqua), [isqua@isqua.ru](mailto:isqua@isqua.ru)
 
 ## License
 
 The MIT License, see the included `License.md` file.
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/meritt/twtcst/trend.png)](https://bitdeli.com/free "Bitdeli Badge")

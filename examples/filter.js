@@ -1,26 +1,27 @@
-var twtcst = require('./../lib/index');
-var oauth  = require('./stuff/oauth');
+const twtcst = require('./../lib/index');
+const oauth  = require('./stuff/oauth');
 
-var twitter = twtcst(['#js', '#nodejs'], oauth);
+const twitter = twtcst(['js', 'nodejs'], oauth);
 
-var validate = twitter.validate([
+const validate = twitter.validate([
   twitter.allowLangs(['en', 'ru']),
   twitter.blockUsers(['simonenko', 'isquariel']),
   twitter.blockWords(['test', 'word', 'array', '#php']),
   twitter.noRetweets(),
   twitter.noMentions(),
   twitter.noDefaults(),
+  twitter.noQuoted(),
   twitter.maxHashtags(5)
 ]);
 
-var beautify = twitter.beautify([
+const beautify = twitter.beautify([
   twitter.autoLink(false),
   twitter.expandEntities({
-    "urls": true,
-    "media": {
-      "width": 500,
-      "height": 500,
-      "class": 'tweet_image'
+    'urls': true,
+    'media': {
+      'width': 500,
+      'height': 500,
+      'class': 'tweet_image'
     }
   }),
   twitter.humanDate(),
