@@ -1,2 +1,3 @@
-.jshintrc
+.eslintignore
+.eslintrc.json
 examples
