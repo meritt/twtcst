@@ -29,7 +29,12 @@
     "request": "2.81.0"
   },
   "devDependencies": {
+    "eslint": "^4.0.0",
+    "eslint-config-htmlacademy": "^0.2.3",
     "socket.io": "^2.0.3"
+  },
+  "scripts": {
+    "test": "eslint ."
   },
   "license": "MIT"
 }
