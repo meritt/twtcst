@@ -1,33 +1,35 @@
 {
-    "name": "twtcst"
-  , "version": "1.1.2"
-  , "description": "Twitter Broadcast"
-  , "keywords": ["twitter", "stream", "websocket", "socket.io", "conference", "broadcast"]
-  , "author": "Alexey Simonenko <alexey@simonenko.su>"
-  , "contributors": [
-        "Alexey Simonenko <alexey@simonenko.su>"
-      , "Sophia Ilinova <tavsophi@gmail.com>"
-    ]
-  , "main": "./lib/index"
-  , "homepage": "http://simonenko.su/projects/twtcst"
-  , "repository": {
-        "type": "git"
-      , "url": "https://github.com/meritt/twtcst.git"
-    }
-  , "engines": {
-      "node": ">=0.10"
-    }
-  , "dependencies": {
-        "twitter-text": "1.9.x"
-      , "request": "2.x"
-    }
-  , "devDependencies": {
-        "coffee-script": "1.7.x"
-      , "socket.io": "0.9.x"
-      , "glob": "3.2.x"
-    }
-  , "scripts": {
-      "build": "./node_modules/.bin/cake build"
-    }
-  , "license": "MIT"
+  "name": "twtcst",
+  "version": "1.1.2",
+  "description": "Twitter Broadcast",
+  "keywords": [
+    "twitter",
+    "stream",
+    "websocket",
+    "socket.io",
+    "conference",
+    "broadcast"
+  ],
+  "author": "Alexey Simonenko <alexey@simonenko.su>",
+  "contributors": [
+    "Alexey Simonenko <alexey@simonenko.su>",
+    "Sophia Ilinova <tavsophi@gmail.com>"
+  ],
+  "main": "./lib/index",
+  "homepage": "http://simonenko.su/projects/twtcst",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meritt/twtcst.git"
+  },
+  "engines": {
+    "node": ">=6.11"
+  },
+  "dependencies": {
+    "twitter-text": "1.14.3",
+    "request": "2.81.0"
+  },
+  "devDependencies": {
+    "socket.io": "^2.0.3"
+  },
+  "license": "MIT"
 }
