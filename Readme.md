@@ -250,7 +250,7 @@ var beautify = twitter.beautify([
 
 set `"urls": true` to expand urls if you want to expand them and set `"media": { ... }` to expand images. Images will be wrapped in an `a` tag, class of this tag will be class you specified in `media.class`. If you specified `media.width` image width will be set to minimal value of media.width and width of the image. `media.height` property works analogously.
 
-**humanDate** adds two fields to tweet: `tweet.human_date` and `tweet.iso_date`. Human date is in format *YYYY-MM-DD HH:MM* and ISO date is Date.toISOString().
+**humanDate** adds two fields to tweet: `tweet.humanDate` and `tweet.isoDate`. Human date is in format *YYYY-MM-DD HH:MM* and ISO date is Date.toISOString().
 
 ```js
 var beautify = twitter.beautify([
