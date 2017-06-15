@@ -5,7 +5,7 @@
       max = 20;
 
   var messages = [],
-      socket = io.connect('http://127.0.0.1:8080'),
+      socket = io('http://127.0.0.1:8080'),
       storage = window.sessionStorage,
       container = document.querySelector('#tweets'),
       indicator = document.querySelector('.twtcst_indicator'),
@@ -48,7 +48,7 @@
   socket.on('connect', function() {
     indicator.classList.add('online');
     socket.emit('search');
-  }); 
+  });
 
   socket.on('message', function(result) {
     result = JSON.parse(result);
